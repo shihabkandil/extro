@@ -1,6 +1,6 @@
 # Extro
 
-A Flutter customer application built with Clean Architecture principles.
+A Flutter expense and income tracking application built with Clean Architecture principles.
 
 ## 🏗️ Architecture
 

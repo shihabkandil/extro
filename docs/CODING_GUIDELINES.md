@@ -21,24 +21,24 @@ Follow the three-layer architecture:
 
 ### Files and Directories
 - Use `snake_case` for all files and directories
-- Example: `store_repository.dart`, `nearby_stores_cubit.dart`
+- Example: `expense_repository.dart`, `monthly_report_cubit.dart`
 
 ### Classes
 - Use `UpperCamelCase`
-- Example: `StoreRepository`, `NearbyStoresCubit`
+- Example: `ExpenseRepository`, `MonthlyReportCubit`
 
 ### Variables and Methods
 - Use `lowerCamelCase`
-- Example: `storeList`, `fetchStores()`
+- Example: `transactionList`, `calculateTotal()`
 
 ### Constants
 - Use `lowerCamelCase`
 - Example: `const maxRetries = 3;`
 
 ### Model Suffixes
-- Response models: End with `Response` (e.g., `StoreResponse`)
-- Domain entities: Use natural names (e.g., `Store`, `User`)
-- Params classes: End with `Params` (e.g., `NearbyStoresParams`)
+- Response models: End with `Response` (e.g., `ExpenseResponse`, `IncomeResponse`)
+- Domain entities: Use natural names (e.g., `Expense`, `Income`, `Transaction`, `Category`)
+- Params classes: End with `Params` (e.g., `FilterTransactionsParams`)
 
 ## Freezed Usage
 
@@ -52,12 +52,13 @@ Follow the three-layer architecture:
 
 ```dart
 @freezed
-sealed class Store with _$Store {
-  const factory Store({
+sealed class Transaction with _$Transaction {
+  const factory Transaction({
     required int id,
-    required String name,
     required String description,
-  }) = _Store;
+    required double amount,
+    required TransactionType type,
+  }) = _Transaction;
 }
 ```
 
@@ -110,9 +111,9 @@ class ExampleCubit extends Cubit<ExampleState> {
 ### Repository Registration
 
 ```dart
-@Singleton(as: IStoreRepository)
-class StoreRepository implements IStoreRepository {
-  StoreRepository({required INetworkClient client}) : _client = client;
+@Singleton(as: IExpenseRepository)
+class ExpenseRepository implements IExpenseRepository {
+  ExpenseRepository({required INetworkClient client}) : _client = client;
   // Implementation...
 }
 ```
@@ -134,14 +135,14 @@ Return `Either<Failure, Success>`:
 
 ```dart
 @override
-Future<Either<Failure, List<Store>>> getAll() async {
-  final response = await _client.get(Endpoints.stores);
+Future<Either<Failure, List<Expense>>> getAll() async {
+  final response = await _client.get(Endpoints.expenses);
 
   return response.fold(
     (failure) => Left(failure),
     (res) {
       try {
-        final data = StoreListResponse.fromJson(res.data);
+        final data = ExpenseListResponse.fromJson(res.data);
         return Right(data.toDomain());
       } catch (e, stackTrace) {
         log('Parse error: $e', error: e, stackTrace: stackTrace);
@@ -156,7 +157,7 @@ Future<Either<Failure, List<Store>>> getAll() async {
 Use AppToast with DisplayError:
 
 ```dart
-BlocListener<StoreCubit, StoreState>(
+BlocListener<ExpenseCubit, ExpenseState>(
   listener: (context, state) {
     state.whenOrNull(
       failure: (failure) => AppToast.showError(
@@ -236,22 +237,24 @@ Add to `lib/l10n/app_en.arb`:
 ```dart
 // Response model
 @freezed
-sealed class StoreResponse with _$StoreResponse {
-  const factory StoreResponse({
+sealed class IncomeResponse with _$IncomeResponse {
+  const factory IncomeResponse({
     required int id,
-    required String name,
-  }) = _StoreResponse;
+    required String source,
+    required double amount,
+  }) = _IncomeResponse;
 
-  factory StoreResponse.fromJson(Map<String, dynamic> json) =>
-      _$StoreResponseFromJson(json);
+  factory IncomeResponse.fromJson(Map<String, dynamic> json) =>
+      _$IncomeResponseFromJson(json);
 }
 
 // Mapper extension in same file
-extension StoreResponseMapper on StoreResponse {
-  Store toDomain() {
-    return Store(
+extension IncomeResponseMapper on IncomeResponse {
+  Income toDomain() {
+    return Income(
       id: id,
-      name: name,
+      source: source,
+      amount: amount,
     );
   }
 }
@@ -265,11 +268,11 @@ Use semantic commit format:
 type: Description starting with capital letter
 
 Examples:
-feat: Add store details screen
-fix: Resolve null pointer in cart cubit
+feat: Add expense tracking screen
+fix: Resolve null pointer in transaction cubit
 docs: Update API integration guide
-refactor: Extract validation logic
-test: Add unit tests for store repository
+refactor: Extract budget calculation logic
+test: Add unit tests for income repository
 chore: Update dependencies
 ```
 
