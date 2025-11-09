@@ -1,0 +1,27 @@
+{
+  "@@locale": "en",
+  "appTitle": "Extro",
+  "@appTitle": {
+    "description": "The application title"
+  },
+  "welcomeMessage": "Welcome to Extro",
+  "@welcomeMessage": {
+    "description": "Welcome message shown to users"
+  },
+  "networkError": "Network error occurred. Please check your connection and try again.",
+  "@networkError": {
+    "description": "Error message for network failures"
+  },
+  "unknownError": "An unknown error occurred. Please try again.",
+  "@unknownError": {
+    "description": "Error message for unknown failures"
+  },
+  "dataProcessingError": "Failed to process data. Please try again.",
+  "@dataProcessingError": {
+    "description": "Error message for data processing failures"
+  },
+  "success": "Success",
+  "@success": {
+    "description": "Success message"
+  }
+}
