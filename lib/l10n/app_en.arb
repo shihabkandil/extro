@@ -1,0 +1,59 @@
+{
+  "@@locale": "en",
+  "appTitle": "Extro",
+  "@appTitle": {
+    "description": "The application title"
+  },
+  "welcomeMessage": "Welcome to Extro",
+  "@welcomeMessage": {
+    "description": "Welcome message shown to users"
+  },
+  "transactions": "Transactions",
+  "@transactions": {
+    "description": "Transactions screen title"
+  },
+  "expenses": "Expenses",
+  "@expenses": {
+    "description": "Expenses label"
+  },
+  "income": "Income",
+  "@income": {
+    "description": "Income label"
+  },
+  "categories": "Categories",
+  "@categories": {
+    "description": "Categories label"
+  },
+  "addTransaction": "Add Transaction",
+  "@addTransaction": {
+    "description": "Add transaction button"
+  },
+  "totalExpenses": "Total Expenses",
+  "@totalExpenses": {
+    "description": "Total expenses label"
+  },
+  "totalIncome": "Total Income",
+  "@totalIncome": {
+    "description": "Total income label"
+  },
+  "balance": "Balance",
+  "@balance": {
+    "description": "Balance label"
+  },
+  "networkError": "Network error occurred. Please check your connection and try again.",
+  "@networkError": {
+    "description": "Error message for network failures"
+  },
+  "unknownError": "An unknown error occurred. Please try again.",
+  "@unknownError": {
+    "description": "Error message for unknown failures"
+  },
+  "dataProcessingError": "Failed to process data. Please try again.",
+  "@dataProcessingError": {
+    "description": "Error message for data processing failures"
+  },
+  "success": "Success",
+  "@success": {
+    "description": "Success message"
+  }
+}
