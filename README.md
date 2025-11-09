@@ -119,7 +119,12 @@ flutter gen-l10n
 
 ## 📖 Developer Guidelines
 
-See the developer agent guidelines in `.github/agents/` for detailed coding conventions and best practices.
+See the comprehensive documentation in the `docs/` directory:
+
+- **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** - Architecture overview and patterns
+- **[CODING_GUIDELINES.md](docs/CODING_GUIDELINES.md)** - Coding conventions and best practices
+- **[FEATURE_GUIDE.md](docs/FEATURE_GUIDE.md)** - Step-by-step feature implementation guide
+- **[SETUP.md](docs/SETUP.md)** - Development environment setup
 
 ## 📄 License
 
