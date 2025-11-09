@@ -1,0 +1,17 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        enabled: true
+        generate_for:
+          - lib/**/*.dart
+        options:
+          unionKey: type
+      json_serializable:
+        enabled: true
+        generate_for:
+          - lib/**/*.dart
+      injectable_generator:injectable_builder:
+        enabled: true
+        generate_for:
+          - lib/core/di/injection.dart
