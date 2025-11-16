@@ -55,5 +55,33 @@
   "success": "Success",
   "@success": {
     "description": "Success message"
+  },
+  "signIn": "Sign In",
+  "@signIn": {
+    "description": "Sign in button label"
+  },
+  "signInWithGoogle": "Sign in with Google",
+  "@signInWithGoogle": {
+    "description": "Sign in with Google button label"
+  },
+  "signInWithApple": "Sign in with Apple",
+  "@signInWithApple": {
+    "description": "Sign in with Apple button label"
+  },
+  "welcomeBack": "Welcome Back",
+  "@welcomeBack": {
+    "description": "Welcome back message on login screen"
+  },
+  "signInToContinue": "Sign in to continue",
+  "@signInToContinue": {
+    "description": "Sign in to continue message"
+  },
+  "authenticationError": "Authentication failed. Please try again.",
+  "@authenticationError": {
+    "description": "Error message for authentication failures"
+  },
+  "signInCancelled": "Sign in was cancelled.",
+  "@signInCancelled": {
+    "description": "Message when user cancels sign in"
   }
 }

@@ -1,6 +1,6 @@
 import 'package:extro/common/presentation/ui_utils/app_toast.dart';
 import 'package:extro/core/di/injection.dart';
-import 'package:extro/features/example/presentation/screens/example_screen.dart';
+import 'package:extro/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale('en'),
       ],
-      home: const ExampleScreen(),
+      home: const LoginScreen(),
     );
   }
 }
