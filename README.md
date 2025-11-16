@@ -73,9 +73,14 @@ flutter pub get
 3. Run code generation:
 ```bash
 flutter pub run build_runner build --delete-conflicting-outputs
+flutter gen-l10n
 ```
 
-4. Run the app:
+4. Configure OAuth providers (optional for development):
+   - See [docs/OAUTH_SETUP.md](docs/OAUTH_SETUP.md) for Google and Apple Sign-In setup
+   - Configure OAuth credentials in Google Cloud Console and Apple Developer Portal
+
+5. Run the app:
 ```bash
 flutter run
 ```
@@ -88,6 +93,15 @@ flutter run
 - **Network**: dio
 - **Functional Programming**: dartz
 - **Localization**: flutter_localizations
+- **Authentication**: google_sign_in + sign_in_with_apple
+
+## ✨ Features
+
+- **OAuth Authentication**: Sign in with Google and Apple (no Firebase required)
+- **Clean Architecture**: Separation of concerns with data, domain, and presentation layers
+- **Type-safe Models**: Immutable data structures using Freezed
+- **Error Handling**: Comprehensive error handling with Either pattern
+- **Internationalization**: Multi-language support ready
 
 ## 📝 Code Generation
 
