@@ -4,6 +4,7 @@ import 'package:extro/features/example/presentation/screens/example_screen.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'core/theme/app_theme.dart';
 import 'l10n/app_localizations.dart';
 
 void main() async {
@@ -20,10 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Extro',
       navigatorKey: AppToast.navigatorKey,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.light,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
