@@ -1,5 +1,6 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:extro/core/failures/failure.dart';
+
+import '../../l10n/app_localizations.dart';
 
 class DisplayError {
   final String title;
