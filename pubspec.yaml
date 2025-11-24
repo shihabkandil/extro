@@ -17,7 +17,7 @@ dependencies:
   equatable: ^2.0.5
   
   # Dependency Injection
-  get_it: ^9.0.5
+  get_it: ^9.1.0
   injectable: ^2.3.2
   
   # Immutable Models
