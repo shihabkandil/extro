@@ -40,9 +40,7 @@ class OAuthRepository implements IOAuthRepository {
         error: e,
         stackTrace: stackTrace,
       );
-      return Left(
-        Failure.authentication(message: 'Failed to sign in with provider'),
-      );
+      return const Left(Failure.authentication());
     }
   }
 
@@ -51,18 +49,14 @@ class OAuthRepository implements IOAuthRepository {
       final account = await _googleSignIn.signIn();
 
       if (account == null) {
-        return const Left(
-          Failure.authentication(message: 'Sign in cancelled'),
-        );
+        return const Left(Failure.authentication());
       }
 
       final auth = await account.authentication;
       final token = auth.idToken;
 
       if (token == null) {
-        return const Left(
-          Failure.authentication(message: 'Failed to get Google token'),
-        );
+        return const Left(Failure.authentication());
       }
 
       return Right(token);
@@ -72,9 +66,7 @@ class OAuthRepository implements IOAuthRepository {
         error: e,
         stackTrace: stackTrace,
       );
-      return Left(
-        Failure.authentication(message: 'Failed to sign in with Google'),
-      );
+      return const Left(Failure.authentication());
     }
   }
 
@@ -90,9 +82,7 @@ class OAuthRepository implements IOAuthRepository {
       final token = credential.identityToken;
 
       if (token == null) {
-        return const Left(
-          Failure.authentication(message: 'Failed to get Apple token'),
-        );
+        return const Left(Failure.authentication());
       }
 
       return Right(token);
@@ -102,9 +92,7 @@ class OAuthRepository implements IOAuthRepository {
         error: e,
         stackTrace: stackTrace,
       );
-      return Left(
-        Failure.authentication(message: 'Failed to sign in with Apple'),
-      );
+      return const Left(Failure.authentication());
     }
   }
 
