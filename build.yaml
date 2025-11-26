@@ -14,4 +14,4 @@ targets:
       injectable_generator:injectable_builder:
         enabled: true
         generate_for:
-          - lib/core/di/injection.dart
+          - lib/**/*.dart

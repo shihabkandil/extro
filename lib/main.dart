@@ -1,6 +1,6 @@
 import 'package:extro/common/presentation/ui_utils/app_toast.dart';
-import 'package:extro/core/di/injection.dart';
-import 'package:extro/features/dashboard/presentation/screens/financial_dashboard_screen.dart';
+import 'package:extro/core/di/locator.dart';
+import 'package:extro/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -10,6 +10,7 @@ import 'l10n/app_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
+  await locator.allReady();
   runApp(const MyApp());
 }
 
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: const [
         Locale('en'),
       ],
-      home: const FinancialDashboardScreen(),
+      home: const LoginScreen(),
     );
   }
 }
