@@ -2,7 +2,7 @@
 
 ## What Was Implemented
 
-A complete feature flag service has been added to the Extro application, allowing you to control feature visibility and behavior throughout the app.
+A complete feature flag service has been added to the Extro application, allowing you to control feature visibility and behavior throughout the app, following Clean Architecture principles and the project's Cubit state management pattern.
 
 ## Files Created
 
@@ -10,30 +10,65 @@ A complete feature flag service has been added to the Extro application, allowin
    - `lib/core/feature_flags/feature_flag.dart` - Enum defining all feature flags
    - `lib/core/feature_flags/i_feature_flag_service.dart` - Service interface
    - `lib/core/feature_flags/feature_flag_service.dart` - Local implementation
+   - `lib/core/feature_flags/cubit/feature_flag_cubit.dart` - Cubit for presentation layer
+   - `lib/core/feature_flags/cubit/feature_flag_state.dart` - Cubit state
+   - `lib/core/feature_flags/feature_flag_extensions.dart` - Context extensions
    - `lib/core/feature_flags/feature_flag_examples.dart` - Usage examples
    - `lib/core/feature_flags/README.md` - Comprehensive documentation
 
-2. **Extensions:**
-   - Updated `lib/core/extensions/context_extensions.dart` - Added `isFeatureEnabled()` method
+2. **Developer Settings:**
+   - `lib/features/developer_settings/presentation/screens/feature_flag_settings_screen.dart` - UI for managing flags
 
 ## Quick Start
 
 ### 1. Run Code Generation
 
-Since the service uses `@Singleton` annotation from injectable, you need to run code generation:
+Since the service uses `@Singleton` annotation from injectable and the cubit uses `@freezed`, you need to run code generation:
 
 ```bash
 flutter pub get
 flutter pub run build_runner build --delete-conflicting-outputs
 ```
 
-This will register the `FeatureFlagService` with the dependency injection system.
+This will:
+- Register the `FeatureFlagService` with the dependency injection system
+- Generate the freezed files for `FeatureFlagState`
 
-### 2. Basic Usage in Widgets
+### 2. Setup FeatureFlagCubit
+
+Wrap your app with `BlocProvider` for `FeatureFlagCubit` in `main.dart`:
+
+```dart
+import 'package:extro/core/feature_flags/cubit/feature_flag_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
+  await locator.allReady();
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => FeatureFlagCubit(),
+      child: MaterialApp(
+        // ... rest of your app
+      ),
+    );
+  }
+}
+```
+
+### 3. Basic Usage in Widgets
 
 ```dart
 import 'package:extro/core/feature_flags/feature_flag.dart';
-import 'package:extro/core/extensions/context_extensions.dart';
+import 'package:extro/core/feature_flags/feature_flag_extensions.dart';
 
 class MyScreen extends StatelessWidget {
   @override
@@ -55,18 +90,19 @@ class MyScreen extends StatelessWidget {
 }
 ```
 
-### 3. Usage in Services/Cubits
+### 4. Usage in Cubits (Domain Layer)
 
 ```dart
 import 'package:extro/core/di/locator.dart';
 import 'package:extro/core/feature_flags/i_feature_flag_service.dart';
 import 'package:extro/core/feature_flags/feature_flag.dart';
 
-class MyService {
+class MyCubit extends Cubit<MyState> {
   final IFeatureFlagService _featureFlags;
 
-  MyService({IFeatureFlagService? featureFlags})
-      : _featureFlags = featureFlags ?? locator<IFeatureFlagService>();
+  MyCubit({IFeatureFlagService? featureFlags})
+      : _featureFlags = featureFlags ?? locator<IFeatureFlagService>(),
+        super(MyState.initial());
 
   void doSomething() {
     if (_featureFlags.isEnabled(FeatureFlag.exampleFeature)) {
@@ -78,26 +114,30 @@ class MyService {
 }
 ```
 
-### 4. Programmatic Control
+### 5. Programmatic Control (In Cubits/Services Only)
 
 ```dart
+// In a cubit or service (domain/data layer)
 final service = locator<IFeatureFlagService>();
 
+// Or using the FeatureFlagCubit (presentation layer)
+final cubit = context.read<FeatureFlagCubit>();
+
 // Disable a feature
-service.disable(FeatureFlag.exampleFeature);
+cubit.disable(FeatureFlag.exampleFeature);
 
 // Enable a feature
-service.enable(FeatureFlag.dashboard);
+cubit.enable(FeatureFlag.dashboard);
 
 // Update multiple flags at once (useful for remote config)
-service.updateFlags({
+cubit.updateFlags({
   'dashboard': true,
   'authentication': true,
   'oauthProviders': false,
 });
 
 // Get all flags
-final allFlags = service.getAllFlags();
+final allFlags = cubit.getAllFlags();
 print(allFlags); // {exampleFeature: true, dashboard: false, ...}
 ```
 

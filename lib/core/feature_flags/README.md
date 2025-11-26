@@ -2,26 +2,49 @@
 
 ## Overview
 
-The Feature Flag Service provides a flexible way to control the visibility and behavior of features in the application. It's designed with future extensibility in mind, allowing for remote configuration while currently operating with local, in-memory storage.
+The Feature Flag Service provides a flexible way to control the visibility and behavior of features in the application. It's designed with future extensibility in mind, allowing for remote configuration while currently operating with local, in-memory storage. The service follows clean architecture principles and integrates with the project's Cubit state management pattern.
 
 ## Architecture
 
 The feature flag system consists of:
 
 1. **`FeatureFlag` enum** - Type-safe feature flag identifiers
-2. **`IFeatureFlagService` interface** - Contract for feature flag operations
-3. **`FeatureFlagService` implementation** - Local in-memory implementation
-4. **Context extension** - Convenient access via BuildContext
+2. **`IFeatureFlagService` interface** - Contract for feature flag operations (domain layer)
+3. **`FeatureFlagService` implementation** - Local in-memory implementation (data layer)
+4. **`FeatureFlagCubit`** - Cubit for managing feature flags in presentation layer
+5. **`FeatureFlagState`** - Freezed state for the cubit
+6. **Context extension** - Convenient access via BuildContext
 
 ## Usage
 
-### Basic Usage
+### Setup
 
-#### Check if a feature is enabled in widgets:
+First, wrap your app with `BlocProvider` for the `FeatureFlagCubit`:
+
+```dart
+import 'package:extro/core/feature_flags/cubit/feature_flag_cubit.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => FeatureFlagCubit(),
+      child: MaterialApp(
+        // ... your app
+      ),
+    );
+  }
+}
+```
+
+### Basic Usage in Widgets
+
+#### Check if a feature is enabled:
 
 ```dart
 import 'package:extro/core/feature_flags/feature_flag.dart';
-import 'package:extro/core/extensions/context_extensions.dart';
+import 'package:extro/core/feature_flags/feature_flag_extensions.dart';
 
 class MyWidget extends StatelessWidget {
   @override
@@ -51,20 +74,21 @@ Widget build(BuildContext context) {
 }
 ```
 
-### Direct Service Access
+### Usage in Cubits (Domain Layer)
 
-For use cases outside of widgets (e.g., in cubits or repositories):
+For domain layer (cubits, repositories), inject the service via constructor:
 
 ```dart
 import 'package:extro/core/di/locator.dart';
 import 'package:extro/core/feature_flags/i_feature_flag_service.dart';
 import 'package:extro/core/feature_flags/feature_flag.dart';
 
-class MyService {
+class MyCubit extends Cubit<MyState> {
   final IFeatureFlagService _featureFlagService;
 
-  MyService({IFeatureFlagService? featureFlagService})
-      : _featureFlagService = featureFlagService ?? locator<IFeatureFlagService>();
+  MyCubit({IFeatureFlagService? featureFlagService})
+      : _featureFlagService = featureFlagService ?? locator<IFeatureFlagService>(),
+        super(MyState.initial());
 
   void doSomething() {
     if (_featureFlagService.isEnabled(FeatureFlag.exampleFeature)) {
@@ -76,7 +100,28 @@ class MyService {
 
 ### Programmatic Control
 
-#### Enable a feature:
+#### In presentation layer (using FeatureFlagCubit):
+
+```dart
+final cubit = context.read<FeatureFlagCubit>();
+
+// Enable a feature
+cubit.enable(FeatureFlag.dashboard);
+
+// Disable a feature
+cubit.disable(FeatureFlag.exampleFeature);
+
+// Update multiple flags
+cubit.updateFlags({
+  'dashboard': true,
+  'authentication': false,
+});
+
+// Get all flags
+final flags = cubit.getAllFlags();
+```
+
+#### In domain/data layer (using service directly):
 
 ```dart
 final service = locator<IFeatureFlagService>();

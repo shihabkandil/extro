@@ -1,6 +1,3 @@
-import 'package:extro/core/di/locator.dart';
-import 'package:extro/core/feature_flags/feature_flag.dart';
-import 'package:extro/core/feature_flags/i_feature_flag_service.dart';
 import 'package:flutter/material.dart';
 
 import '../../l10n/app_localizations.dart';
@@ -28,17 +25,5 @@ extension ContextExtensions on BuildContext {
 
   void hideKeyboard() {
     FocusScope.of(this).unfocus();
-  }
-
-  /// Checks if a specific feature flag is enabled.
-  ///
-  /// Example usage:
-  /// ```dart
-  /// if (context.isFeatureEnabled(FeatureFlag.dashboard)) {
-  ///   // Show dashboard
-  /// }
-  /// ```
-  bool isFeatureEnabled(FeatureFlag flag) {
-    return locator<IFeatureFlagService>().isEnabled(flag);
   }
 }
