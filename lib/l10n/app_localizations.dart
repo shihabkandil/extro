@@ -62,7 +62,7 @@ import 'app_localizations_en.dart';
 /// property.
 abstract class AppLocalizations {
   AppLocalizations(String locale)
-      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -85,11 +85,11 @@ abstract class AppLocalizations {
   /// of delegates is preferred or required.
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
@@ -177,6 +177,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Success'**
   String get success;
+
+  /// Sign in button label
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In'**
+  String get signIn;
+
+  /// Sign in with Google button label
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Google'**
+  String get signInWithGoogle;
+
+  /// Sign in with Apple button label
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in with Apple'**
+  String get signInWithApple;
+
+  /// Welcome back message on login screen
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome Back'**
+  String get welcomeBack;
+
+  /// Sign in to continue message
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in to continue'**
+  String get signInToContinue;
+
+  /// Error message for authentication failures
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication failed. Please try again.'**
+  String get authenticationError;
+
+  /// Message when user cancels sign in
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in was cancelled.'**
+  String get signInCancelled;
 }
 
 class _AppLocalizationsDelegate
@@ -204,8 +246,9 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
 }

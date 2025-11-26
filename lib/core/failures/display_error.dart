@@ -30,7 +30,7 @@ class DisplayError {
       ),
       authentication: (message) => DisplayError(
         title: localizer.unknownError,
-        message: message ?? localizer.unknownError,
+        message: message ?? localizer.authenticationError,
       ),
       notFound: (message) => DisplayError(
         title: localizer.unknownError,
