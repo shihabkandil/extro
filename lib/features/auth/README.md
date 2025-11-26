@@ -67,7 +67,7 @@ flutter gen-l10n
 ```
 
 ### Platform Configuration
-See [OAUTH_SETUP.md](../../../docs/OAUTH_SETUP.md) for detailed platform-specific setup instructions.
+See [OAUTH_SETUP.md](OAUTH_SETUP.md) for detailed platform-specific setup instructions.
 
 ## Dependencies
 - `google_sign_in`: ^6.1.5 - Google Sign-In SDK

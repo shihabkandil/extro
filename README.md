@@ -77,7 +77,7 @@ flutter gen-l10n
 ```
 
 4. Configure OAuth providers (optional for development):
-   - See [docs/OAUTH_SETUP.md](docs/OAUTH_SETUP.md) for Google and Apple Sign-In setup
+   - See [docs/OAUTH_SETUP.md](lib/features/auth/OAUTH_SETUP.md) for Google and Apple Sign-In setup
    - Configure OAuth credentials in Google Cloud Console and Apple Developer Portal
 
 5. Run the app:
