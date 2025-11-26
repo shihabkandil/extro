@@ -1,6 +1,7 @@
-import 'package:extro/core/feature_flags/feature_flag.dart';
-import 'package:extro/core/feature_flags/i_feature_flag_service.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../domain/feature_flag.dart';
+import 'i_feature_flag_service.dart';
 
 @Singleton(as: IFeatureFlagService)
 class FeatureFlagService implements IFeatureFlagService {
@@ -19,20 +20,5 @@ class FeatureFlagService implements IFeatureFlagService {
       allFlags[flag.name] = isEnabled(flag);
     }
     return allFlags;
-  }
-
-  @override
-  void enable(FeatureFlag flag) {
-    _flags[flag.name] = true;
-  }
-
-  @override
-  void disable(FeatureFlag flag) {
-    _flags[flag.name] = false;
-  }
-
-  @override
-  void updateFlags(Map<String, bool> flags) {
-    _flags.addAll(flags);
   }
 }

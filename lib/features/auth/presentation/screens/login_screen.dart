@@ -2,7 +2,6 @@ import 'package:extro/common/presentation/ui_utils/app_toast.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
 import 'package:extro/core/failures/display_error.dart';
 import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_cubit.dart';
-import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_state.dart';
 import 'package:extro/features/auth/domain/entities/oauth_provider.dart';
 import 'package:extro/features/auth/presentation/widgets/sign_in_button.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +26,8 @@ class LoginScreen extends StatelessWidget {
                 },
                 authenticated: (user) {
                   AppToast.showSuccess(
-                      '${context.localizer.welcomeBack} ${user.name ?? user.email}!');
+                    '${context.localizer.welcomeBack} ${user.name ?? user.email}!',
+                  );
                 },
               );
             },
@@ -65,8 +65,8 @@ class LoginScreen extends StatelessWidget {
                       Text(
                         context.localizer.signInToContinue,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Colors.grey[600],
-                            ),
+                          color: Colors.grey[600],
+                        ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 48),
@@ -75,8 +75,8 @@ class LoginScreen extends StatelessWidget {
                         isLoading: isLoading,
                         onPressed: () {
                           context.read<AuthCubit>().signInWithProvider(
-                                OAuthProvider.google,
-                              );
+                            OAuthProvider.google,
+                          );
                         },
                       ),
                       const SizedBox(height: 16),
@@ -85,8 +85,8 @@ class LoginScreen extends StatelessWidget {
                         isLoading: isLoading,
                         onPressed: () {
                           context.read<AuthCubit>().signInWithProvider(
-                                OAuthProvider.apple,
-                              );
+                            OAuthProvider.apple,
+                          );
                         },
                       ),
                     ],

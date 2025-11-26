@@ -1,8 +1,4 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:extro/core/failures/failure.dart';
-import 'package:extro/features/auth/domain/entities/user.dart';
-
-part 'auth_state.freezed.dart';
+part of 'auth_cubit.dart';
 
 @freezed
 sealed class AuthState with _$AuthState {
