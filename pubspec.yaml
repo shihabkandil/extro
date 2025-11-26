@@ -17,7 +17,7 @@ dependencies:
   equatable: ^2.0.5
   
   # Dependency Injection
-  get_it: ^9.0.5
+  get_it: ^9.1.0
   injectable: ^2.3.2
   
   # Immutable Models
@@ -44,9 +44,9 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   
   # Code Generation
-  build_runner: ^2.4.6
+  build_runner: ^2.10.4
   freezed: ^3.2.3
-  json_serializable: ^6.7.1
+  json_serializable: ^6.11.2
   injectable_generator: ^2.4.1
 
 flutter:
