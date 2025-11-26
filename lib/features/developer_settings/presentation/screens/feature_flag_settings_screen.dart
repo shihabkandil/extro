@@ -5,18 +5,6 @@ import 'package:extro/core/feature_flags/feature_flag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// A developer settings screen to manage feature flags.
-///
-/// This screen allows developers to:
-/// - View all feature flags and their current status
-/// - Toggle feature flags on/off
-/// - See the effects immediately in the app
-///
-/// This is useful for:
-/// - Testing features during development
-/// - QA testing different feature combinations
-/// - Demonstrating features to stakeholders
-/// - Debugging feature-specific issues
 class FeatureFlagSettingsScreen extends StatelessWidget {
   const FeatureFlagSettingsScreen({super.key});
 
