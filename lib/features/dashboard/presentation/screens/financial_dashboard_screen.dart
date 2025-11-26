@@ -64,9 +64,7 @@ class FinancialDashboardScreen extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: GradientFAB(
-        label: context.localizer.addNew,
-      ),
+      floatingActionButton: GradientFAB(label: context.localizer.addNew),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -102,7 +100,10 @@ class _MetricCardsSection extends StatelessWidget {
             value: expensesValue,
             period: cardPeriod,
             label: context.localizer.expenses,
-            gradientColors: const [AppColors.expensesDark, AppColors.expensesLight],
+            gradientColors: const [
+              AppColors.expensesDark,
+              AppColors.expensesLight,
+            ],
             isIncome: false,
           ),
         ),
@@ -133,12 +134,13 @@ class _RecentTransactionsSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 16),
-        ...transactions.map((transaction) => Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: TransactionTile(transaction: transaction),
-            )),
+        ...transactions.map(
+          (transaction) => Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: TransactionTile(transaction: transaction),
+          ),
+        ),
       ],
     );
   }
 }
-

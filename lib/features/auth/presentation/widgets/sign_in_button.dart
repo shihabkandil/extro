@@ -28,26 +28,19 @@ class SignInButton extends StatelessWidget {
           elevation: 2,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
-            side: BorderSide(
-              color: buttonConfig.borderColor,
-            ),
+            side: BorderSide(color: buttonConfig.borderColor),
           ),
         ),
         child: isLoading
             ? const SizedBox(
                 height: 20,
                 width: 20,
-                child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                ),
+                child: CircularProgressIndicator(strokeWidth: 2),
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    buttonConfig.icon,
-                    size: 24,
-                  ),
+                  Icon(buttonConfig.icon, size: 24),
                   const SizedBox(width: 12),
                   Text(
                     buttonConfig.label,

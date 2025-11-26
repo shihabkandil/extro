@@ -8,10 +8,5 @@ abstract class RegisterModule {
   Dio get client => Dio();
 
   @lazySingleton
-  GoogleSignIn get googleSignIn => GoogleSignIn(
-        scopes: [
-          'email',
-          'profile',
-        ],
-      );
+  GoogleSignIn get googleSignIn => GoogleSignIn(scopes: ['email', 'profile']);
 }

@@ -11,8 +11,5 @@ sealed class OAuthRequest with _$OAuthRequest {
 
   const OAuthRequest._();
 
-  Map<String, dynamic> toJson() => {
-        'token': token,
-        'provider': provider,
-      };
+  Map<String, dynamic> toJson() => {'token': token, 'provider': provider};
 }
