@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:extro/core/theme/app_colors.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
+import 'package:extro/core/theme/app_colors.dart';
+import 'package:flutter/material.dart';
 
 class MetricCard extends StatelessWidget {
   final String value;
@@ -31,7 +31,7 @@ class MetricCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: gradientColors.first.withOpacity(0.3),
+            color: gradientColors.first.withValues(alpha: 0.3),
             blurRadius: 12,
             offset: const Offset(0, 6),
           ),
@@ -46,11 +46,26 @@ class MetricCard extends StatelessWidget {
               if (isIncome)
                 Row(
                   children: [
-                    Text('€', style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white)),
+                    Text(
+                      '€',
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: AppColors.white,
+                      ),
+                    ),
                     const SizedBox(width: 4),
-                    Text('¥', style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white)),
+                    Text(
+                      '¥',
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: AppColors.white,
+                      ),
+                    ),
                     const SizedBox(width: 4),
-                    Text('£', style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white)),
+                    Text(
+                      '£',
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: AppColors.white,
+                      ),
+                    ),
                   ],
                 ),
               if (!isIncome) const SizedBox.shrink(),
@@ -81,7 +96,7 @@ class MetricCard extends StatelessWidget {
           Text(
             period,
             style: context.textTheme.bodySmall?.copyWith(
-              color: AppColors.white.withOpacity(0.8),
+              color: AppColors.white.withValues(alpha: 0.8),
               fontWeight: FontWeight.w500,
               letterSpacing: 0.5,
             ),
@@ -91,4 +106,3 @@ class MetricCard extends StatelessWidget {
     );
   }
 }
-

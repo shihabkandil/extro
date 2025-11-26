@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:extro/core/failures/failure.dart';
@@ -140,7 +141,9 @@ class NetworkClient implements INetworkClient {
       case DioExceptionType.badResponse:
         final statusCode = error.response?.statusCode;
         if (statusCode == 401 || statusCode == 403) {
-          return const Failure.authentication(message: 'Authentication failed.');
+          return const Failure.authentication(
+            message: 'Authentication failed.',
+          );
         } else if (statusCode == 404) {
           return const Failure.notFound(message: 'Resource not found.');
         } else if (statusCode != null && statusCode >= 500) {
@@ -150,13 +153,10 @@ class NetworkClient implements INetworkClient {
       case DioExceptionType.cancel:
         return const Failure.unknown(message: 'Request was cancelled.');
       case DioExceptionType.connectionError:
-        return const Failure.network(
-          message: 'No internet connection.',
-        );
+        return const Failure.network(message: 'No internet connection.');
       case DioExceptionType.badCertificate:
         return const Failure.network(message: 'Invalid SSL certificate.');
       case DioExceptionType.unknown:
-      default:
         return Failure.unknown(message: error.message);
     }
   }
