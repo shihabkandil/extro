@@ -177,6 +177,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Success'**
   String get success;
+
+  /// This month label for dashboard cards
+  ///
+  /// In en, this message translates to:
+  /// **'THIS MONTH'**
+  String get thisMonth;
+
+  /// Recent transactions section title
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Transactions'**
+  String get recentTransactions;
+
+  /// Add new button text
+  ///
+  /// In en, this message translates to:
+  /// **'ADD NEW'**
+  String get addNew;
 }
 
 class _AppLocalizationsDelegate

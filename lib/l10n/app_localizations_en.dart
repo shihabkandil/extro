@@ -50,4 +50,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get success => 'Success';
+
+  @override
+  String get thisMonth => 'THIS MONTH';
+
+  @override
+  String get recentTransactions => 'Recent Transactions';
+
+  @override
+  String get addNew => 'ADD NEW';
 }
