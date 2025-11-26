@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../l10n/app_localizations.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 extension ContextExtensions on BuildContext {
-  AppLocalizations get localizer => AppLocalizations.of(this)!;
+  AppLocalizations get localizer => AppLocalizations.of(this);
 
   ThemeData get theme => Theme.of(this);
 

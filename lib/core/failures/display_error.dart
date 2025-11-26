@@ -1,20 +1,14 @@
 import 'package:extro/core/failures/failure.dart';
 
-import '../../l10n/app_localizations.dart';
+import '../../l10n/generated/app_localizations.dart';
 
 class DisplayError {
   final String title;
   final String message;
 
-  const DisplayError({
-    required this.title,
-    required this.message,
-  });
+  const DisplayError({required this.title, required this.message});
 
-  static DisplayError fromFailure(
-    AppLocalizations localizer,
-    Failure failure,
-  ) {
+  static DisplayError fromFailure(AppLocalizations localizer, Failure failure) {
     return failure.when(
       network: (message) => DisplayError(
         title: localizer.unknownError,

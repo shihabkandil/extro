@@ -1,14 +1,19 @@
 import 'package:extro/core/di/locator.dart';
-import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_state.dart';
 import 'package:extro/features/auth/domain/entities/oauth_provider.dart';
 import 'package:extro/features/auth/domain/repositories/i_oauth_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+import '../../../../../core/failures/failure.dart';
+import '../../entities/user.dart';
+
+part 'auth_cubit.freezed.dart';
+part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit({
-    IOAuthRepository? repository,
-  })  : _repository = repository ?? locator<IOAuthRepository>(),
-        super(const AuthState.initial());
+  AuthCubit({IOAuthRepository? repository})
+    : _repository = repository ?? locator<IOAuthRepository>(),
+      super(const AuthState.initial());
 
   final IOAuthRepository _repository;
 
