@@ -1,4 +1,1 @@
-enum OAuthProvider {
-  google,
-  apple,
-}
+enum OAuthProvider { google, apple }
