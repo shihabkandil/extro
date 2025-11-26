@@ -5,7 +5,9 @@ import 'i_feature_flag_service.dart';
 
 @Singleton(as: IFeatureFlagService)
 class FeatureFlagService implements IFeatureFlagService {
-  final Map<String, bool> _flags = {};
+  final Map<String, bool> _flags = {
+    FeatureFlag.oauthProviders.name: false,
+  };
   static const bool _defaultFlagValue = true;
 
   @override

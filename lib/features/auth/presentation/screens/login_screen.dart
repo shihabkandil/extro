@@ -1,6 +1,8 @@
 import 'package:extro/common/presentation/ui_utils/app_toast.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
 import 'package:extro/core/failures/display_error.dart';
+import 'package:extro/core/feature_flags/domain/feature_flag.dart';
+import 'package:extro/core/feature_flags/utils/feature_flag_extensions.dart';
 import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:extro/features/auth/domain/entities/oauth_provider.dart';
 import 'package:extro/features/auth/presentation/widgets/sign_in_button.dart';
@@ -70,25 +72,27 @@ class LoginScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 48),
-                      SignInButton(
-                        provider: OAuthProvider.google,
-                        isLoading: isLoading,
-                        onPressed: () {
-                          context.read<AuthCubit>().signInWithProvider(
-                            OAuthProvider.google,
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 16),
-                      SignInButton(
-                        provider: OAuthProvider.apple,
-                        isLoading: isLoading,
-                        onPressed: () {
-                          context.read<AuthCubit>().signInWithProvider(
-                            OAuthProvider.apple,
-                          );
-                        },
-                      ),
+                      if (context.isFeatureEnabled(FeatureFlag.oauthProviders)) ...[
+                        SignInButton(
+                          provider: OAuthProvider.google,
+                          isLoading: isLoading,
+                          onPressed: () {
+                            context.read<AuthCubit>().signInWithProvider(
+                              OAuthProvider.google,
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 16),
+                        SignInButton(
+                          provider: OAuthProvider.apple,
+                          isLoading: isLoading,
+                          onPressed: () {
+                            context.read<AuthCubit>().signInWithProvider(
+                              OAuthProvider.apple,
+                            );
+                          },
+                        ),
+                      ],
                     ],
                   ),
                 ),
