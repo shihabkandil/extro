@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:extro/core/di/locator.dart';
 import 'package:extro/core/providers/i_feature_flag_service.dart';
@@ -30,7 +31,7 @@ class FeatureFlagDemoCubit extends Cubit<FeatureFlagDemoState> {
   }
 }
 
-class FeatureFlagDemoState {
+class FeatureFlagDemoState extends Equatable {
   const FeatureFlagDemoState({
     this.featureFlags = const {},
     this.useNewDashboard = false,
@@ -52,4 +53,7 @@ class FeatureFlagDemoState {
       useAdvancedAnalytics: useAdvancedAnalytics ?? this.useAdvancedAnalytics,
     );
   }
+
+  @override
+  List<Object?> get props => [featureFlags, useNewDashboard, useAdvancedAnalytics];
 }
