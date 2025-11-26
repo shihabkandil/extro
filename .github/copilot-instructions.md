@@ -651,7 +651,6 @@ class TransactionListScreen extends StatelessWidget {
 
 ### State Management
 - **flutter_bloc**: Cubit pattern for state management
-- **equatable**: Value equality for objects
 
 ### Dependency Injection
 - **get_it**: Service locator
