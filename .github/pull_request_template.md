@@ -5,5 +5,7 @@ Brief description of what this PR adds or changes.
 -  
 
 ## Tests
-- Unit tests added/updated:
-  -
+- Unit tests added/updated: Yes / No
+- Manual testing steps:
+  1.
+  2.
