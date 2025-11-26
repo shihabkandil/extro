@@ -56,6 +56,18 @@
   "@success": {
     "description": "Success message"
   },
+  "thisMonth": "THIS MONTH",
+  "@thisMonth": {
+    "description": "This month label for dashboard cards"
+  },
+  "recentTransactions": "Recent Transactions",
+  "@recentTransactions": {
+    "description": "Recent transactions section title"
+  },
+  "addNew": "ADD NEW",
+  "@addNew": {
+    "description": "Add new button text"
+  },
   "signIn": "Sign In",
   "@signIn": {
     "description": "Sign in button label"
