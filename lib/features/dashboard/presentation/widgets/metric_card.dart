@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:extro/core/theme/app_colors.dart';
+import 'package:extro/core/extensions/context_extensions.dart';
 
 class MetricCard extends StatelessWidget {
   final String value;
@@ -43,13 +44,13 @@ class MetricCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               if (isIncome)
-                const Row(
+                Row(
                   children: [
-                    Text('€', style: TextStyle(color: AppColors.white, fontSize: 16)),
-                    SizedBox(width: 4),
-                    Text('¥', style: TextStyle(color: AppColors.white, fontSize: 16)),
-                    SizedBox(width: 4),
-                    Text('£', style: TextStyle(color: AppColors.white, fontSize: 16)),
+                    Text('€', style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white)),
+                    const SizedBox(width: 4),
+                    Text('¥', style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white)),
+                    const SizedBox(width: 4),
+                    Text('£', style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white)),
                   ],
                 ),
               if (!isIncome) const SizedBox.shrink(),
@@ -63,27 +64,24 @@ class MetricCard extends StatelessWidget {
           const SizedBox(height: 16),
           Text(
             label,
-            style: const TextStyle(
+            style: context.textTheme.labelMedium?.copyWith(
               color: AppColors.white,
-              fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
           ),
           const SizedBox(height: 8),
           Text(
             value,
-            style: const TextStyle(
+            style: context.textTheme.headlineMedium?.copyWith(
               color: AppColors.white,
-              fontSize: 24,
               fontWeight: FontWeight.w900,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             period,
-            style: TextStyle(
+            style: context.textTheme.bodySmall?.copyWith(
               color: AppColors.white.withOpacity(0.8),
-              fontSize: 11,
               fontWeight: FontWeight.w500,
               letterSpacing: 0.5,
             ),
@@ -93,3 +91,4 @@ class MetricCard extends StatelessWidget {
     );
   }
 }
+

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:extro/core/theme/app_colors.dart';
+import 'package:extro/core/extensions/context_extensions.dart';
 
 class GradientFAB extends StatelessWidget {
   final String label;
@@ -47,9 +48,8 @@ class GradientFAB extends StatelessWidget {
               const SizedBox(width: 8),
               Text(
                 label,
-                style: const TextStyle(
+                style: context.textTheme.titleMedium?.copyWith(
                   color: AppColors.white,
-                  fontSize: 16,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 0.5,
                 ),

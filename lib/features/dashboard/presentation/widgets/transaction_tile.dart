@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:extro/core/theme/app_colors.dart';
+import 'package:extro/core/extensions/context_extensions.dart';
 
 class TransactionData {
   final String title;
@@ -68,8 +69,7 @@ class TransactionTile extends StatelessWidget {
               children: [
                 Text(
                   transaction.title,
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style: context.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: AppColors.textDark,
                   ),
@@ -77,8 +77,7 @@ class TransactionTile extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   transaction.category,
-                  style: const TextStyle(
-                    fontSize: 14,
+                  style: context.textTheme.bodyMedium?.copyWith(
                     color: AppColors.textGrey,
                   ),
                 ),
@@ -90,8 +89,7 @@ class TransactionTile extends StatelessWidget {
             children: [
               Text(
                 '${transaction.isIncome ? '+' : '-'}\$${transaction.amount.toStringAsFixed(2)}',
-                style: TextStyle(
-                  fontSize: 18,
+                style: context.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: transaction.isIncome 
                       ? AppColors.incomeGreen 
@@ -101,8 +99,7 @@ class TransactionTile extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 '\$${(transaction.amount * 0.1).toStringAsFixed(2)}',
-                style: const TextStyle(
-                  fontSize: 12,
+                style: context.textTheme.bodySmall?.copyWith(
                   color: AppColors.textGrey,
                 ),
               ),
