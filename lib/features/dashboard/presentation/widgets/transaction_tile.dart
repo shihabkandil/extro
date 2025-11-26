@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:extro/core/theme/app_colors.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
+import 'package:extro/core/theme/app_colors.dart';
+import 'package:flutter/material.dart';
 
 class TransactionData {
   final String title;
@@ -19,10 +19,7 @@ class TransactionData {
 class TransactionTile extends StatelessWidget {
   final TransactionData transaction;
 
-  const TransactionTile({
-    super.key,
-    required this.transaction,
-  });
+  const TransactionTile({super.key, required this.transaction});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +30,7 @@ class TransactionTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -48,16 +45,16 @@ class TransactionTile extends StatelessWidget {
               color: AppColors.white,
               shape: BoxShape.circle,
               border: Border.all(
-                color: transaction.isIncome 
-                    ? AppColors.incomeGreen 
+                color: transaction.isIncome
+                    ? AppColors.incomeGreen
                     : AppColors.expenseRed,
                 width: 2,
               ),
             ),
             child: Icon(
               transaction.isIncome ? Icons.add : Icons.remove,
-              color: transaction.isIncome 
-                  ? AppColors.incomeGreen 
+              color: transaction.isIncome
+                  ? AppColors.incomeGreen
                   : AppColors.expenseRed,
               size: 24,
             ),
@@ -91,8 +88,8 @@ class TransactionTile extends StatelessWidget {
                 '${transaction.isIncome ? '+' : '-'}\$${transaction.amount.toStringAsFixed(2)}',
                 style: context.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: transaction.isIncome 
-                      ? AppColors.incomeGreen 
+                  color: transaction.isIncome
+                      ? AppColors.incomeGreen
                       : AppColors.expenseRed,
                 ),
               ),

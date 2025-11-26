@@ -1,4 +1,5 @@
 import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:extro/core/failures/failure.dart';
 import 'package:extro/core/network/endpoints.dart';
@@ -20,8 +21,8 @@ class OAuthRepository implements IOAuthRepository {
   OAuthRepository({
     required INetworkClient client,
     required GoogleSignIn googleSignIn,
-  })  : _client = client,
-        _googleSignIn = googleSignIn;
+  }) : _client = client,
+       _googleSignIn = googleSignIn;
 
   @override
   Future<Either<Failure, String>> getProviderToken(
@@ -35,11 +36,7 @@ class OAuthRepository implements IOAuthRepository {
           return _getAppleToken();
       }
     } catch (e, stackTrace) {
-      log(
-        'Failed to get provider token: $e',
-        error: e,
-        stackTrace: stackTrace,
-      );
+      log('Failed to get provider token: $e', error: e, stackTrace: stackTrace);
       return const Left(Failure.authentication());
     }
   }
@@ -87,11 +84,7 @@ class OAuthRepository implements IOAuthRepository {
 
       return Right(token);
     } catch (e, stackTrace) {
-      log(
-        'Failed to sign in with Apple: $e',
-        error: e,
-        stackTrace: stackTrace,
-      );
+      log('Failed to sign in with Apple: $e', error: e, stackTrace: stackTrace);
       return const Left(Failure.authentication());
     }
   }
@@ -101,10 +94,7 @@ class OAuthRepository implements IOAuthRepository {
     String token,
     OAuthProvider provider,
   ) async {
-    final request = OAuthRequest(
-      token: token,
-      provider: provider.name,
-    );
+    final request = OAuthRequest(token: token, provider: provider.name);
 
     final response = await _client.post(
       Endpoints.userOAuth,
@@ -112,23 +102,18 @@ class OAuthRepository implements IOAuthRepository {
       requiresAuth: false,
     );
 
-    return response.fold(
-      (failure) => Left(failure),
-      (res) {
-        try {
-          final data = UserResponse.fromJson(
-            res.data as Map<String, dynamic>,
-          );
-          return Right(data.toDomain());
-        } catch (e, stackTrace) {
-          log(
-            'Failed to parse UserResponse: $e',
-            error: e,
-            stackTrace: stackTrace,
-          );
-          return Left(Failure.dataProcessing());
-        }
-      },
-    );
+    return response.fold((failure) => Left(failure), (res) {
+      try {
+        final data = UserResponse.fromJson(res.data as Map<String, dynamic>);
+        return Right(data.toDomain());
+      } catch (e, stackTrace) {
+        log(
+          'Failed to parse UserResponse: $e',
+          error: e,
+          stackTrace: stackTrace,
+        );
+        return const Left(Failure.dataProcessing());
+      }
+    });
   }
 }
