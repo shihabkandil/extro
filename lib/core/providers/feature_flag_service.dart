@@ -34,12 +34,14 @@ class FeatureFlagService implements IFeatureFlagService {
 
   /// Update a feature flag value
   /// This can be called when fetching from a remote service in the future
+  @override
   void updateFeatureFlag(String featureKey, bool value) {
     _featureFlags[featureKey] = value;
   }
 
   /// Update multiple feature flags at once
   /// This can be called when fetching from a remote service in the future
+  @override
   void updateFeatureFlags(Map<String, bool> flags) {
     _featureFlags.addAll(flags);
   }
