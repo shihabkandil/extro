@@ -269,7 +269,7 @@ sealed class TransactionState with _$TransactionState {
 
 ```dart
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:extro/core/di/injection.dart';
+import 'package:extro/core/di/locator.dart';
 import 'package:extro/features/transactions/domain/cubits/transaction_cubit/transaction_state.dart';
 import 'package:extro/features/transactions/domain/repositories/i_transaction_repository.dart';
 

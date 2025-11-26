@@ -1,8 +1,8 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:extro/core/di/injection.dart';
+import 'package:extro/core/di/locator.dart';
 import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_state.dart';
 import 'package:extro/features/auth/domain/entities/oauth_provider.dart';
 import 'package:extro/features/auth/domain/repositories/i_oauth_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit({

@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:extro/common/presentation/ui_utils/app_toast.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
 import 'package:extro/core/failures/display_error.dart';
@@ -7,6 +5,8 @@ import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_state.dart';
 import 'package:extro/features/auth/domain/entities/oauth_provider.dart';
 import 'package:extro/features/auth/presentation/widgets/sign_in_button.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -26,7 +26,8 @@ class LoginScreen extends StatelessWidget {
                   );
                 },
                 authenticated: (user) {
-                  AppToast.showSuccess('Welcome ${user.name ?? user.email}!');
+                  AppToast.showSuccess(
+                      '${context.localizer.welcomeBack} ${user.name ?? user.email}!');
                 },
               );
             },

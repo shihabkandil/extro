@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
 import 'package:extro/features/auth/domain/entities/oauth_provider.dart';
+import 'package:flutter/material.dart';
 
 class SignInButton extends StatelessWidget {
   final OAuthProvider provider;
@@ -30,7 +30,6 @@ class SignInButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
             side: BorderSide(
               color: buttonConfig.borderColor,
-              width: 1,
             ),
           ),
         ),

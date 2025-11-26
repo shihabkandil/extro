@@ -1,7 +1,7 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:extro/core/di/injection.dart';
+import 'package:extro/core/di/locator.dart';
 import 'package:extro/features/example/domain/cubits/example_cubit/example_state.dart';
 import 'package:extro/features/example/domain/repositories/i_example_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ExampleCubit extends Cubit<ExampleState> {
   ExampleCubit({
