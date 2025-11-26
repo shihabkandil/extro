@@ -50,6 +50,7 @@ app.*.map.json
 *.freezed.dart
 *.config.dart
 lib/gen/
+lib/l10n/generated/
 
 # Coverage
 coverage/
@@ -98,3 +99,6 @@ tmp/
 temp/
 *.tmp
 *.temp
+
+
+pubspec.lock
