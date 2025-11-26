@@ -67,6 +67,8 @@ Located in `lib/features/*/presentation/`
 
 ### Providers
 - `providers/date_time_provider.dart`: Testable DateTime provider
+- `providers/feature_flag_service.dart`: Feature flag control service
+- `providers/i_feature_flag_service.dart`: Feature flag service interface
 
 ### Utils
 - `utils/date_time_converter.dart`: DateTime parsing utilities

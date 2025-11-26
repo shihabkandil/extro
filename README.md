@@ -102,6 +102,7 @@ flutter run
 - **Type-safe Models**: Immutable data structures using Freezed
 - **Error Handling**: Comprehensive error handling with Either pattern
 - **Internationalization**: Multi-language support ready
+- **Feature Flags**: Control feature visibility at runtime with injectable service
 
 ## 📝 Code Generation
 
@@ -138,6 +139,7 @@ See the comprehensive documentation in the `docs/` directory:
 - **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** - Architecture overview and patterns
 - **[CODING_GUIDELINES.md](docs/CODING_GUIDELINES.md)** - Coding conventions and best practices
 - **[FEATURE_GUIDE.md](docs/FEATURE_GUIDE.md)** - Step-by-step feature implementation guide
+- **[FEATURE_FLAGS.md](docs/FEATURE_FLAGS.md)** - Feature flag service usage guide
 - **[SETUP.md](docs/SETUP.md)** - Development environment setup
 
 ## 📄 License
