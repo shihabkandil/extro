@@ -364,6 +364,7 @@ class _TransactionTile extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 4),
+              // Sub-amount showing a muted grey value (e.g., tax or fee calculation)
               Text(
                 '\$${(transaction.amount * 0.1).toStringAsFixed(2)}',
                 style: const TextStyle(
