@@ -115,17 +115,108 @@ The service initializes with these default flags:
 
 ## Future Extensions
 
-The service is designed to support remote configuration in the future:
+The service is designed to support remote configuration in the future. Here's a detailed implementation example:
+
+### Remote Configuration Implementation
 
 ```dart
-// Future implementation example
+import 'package:extro/core/providers/i_feature_flag_service.dart';
+import 'package:extro/core/network/i_network_client.dart';
+import 'package:injectable/injectable.dart';
+
+@Singleton(as: IFeatureFlagService)
 class RemoteFeatureFlagService implements IFeatureFlagService {
-  final ApiClient _apiClient;
+  final INetworkClient _client;
+  final Map<String, bool> _featureFlags = {};
   
+  RemoteFeatureFlagService({required INetworkClient client}) : _client = client {
+    _initializeDefaults();
+  }
+  
+  void _initializeDefaults() {
+    _featureFlags['example_feature'] = true;
+    _featureFlags['new_dashboard'] = false;
+    _featureFlags['advanced_analytics'] = false;
+  }
+  
+  /// Fetch feature flags from remote service
   Future<void> fetchRemoteFlags() async {
-    final response = await _apiClient.get('/feature-flags');
-    final flags = response.data as Map<String, bool>;
-    updateFeatureFlags(flags);
+    final response = await _client.get(
+      '/api/v1/feature-flags',
+      requiresAuth: false,
+    );
+    
+    response.fold(
+      (failure) {
+        // Log error, continue with local defaults
+      },
+      (res) {
+        final flags = res.data as Map<String, dynamic>;
+        flags.forEach((key, value) {
+          if (value is bool) {
+            _featureFlags[key] = value;
+          }
+        });
+      },
+    );
+  }
+  
+  @override
+  bool isFeatureEnabled(String featureKey) {
+    return _featureFlags[featureKey] ?? false;
+  }
+  
+  @override
+  Map<String, bool> getAllFeatureFlags() {
+    return Map.unmodifiable(_featureFlags);
+  }
+  
+  @override
+  bool getFeatureFlag(String featureKey, {bool defaultValue = false}) {
+    return _featureFlags[featureKey] ?? defaultValue;
+  }
+}
+```
+
+### Using Remote Configuration
+
+```dart
+// In your app initialization (e.g., main.dart)
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  await configureDependencies();
+  
+  // Fetch remote feature flags on app start
+  final featureFlags = locator<IFeatureFlagService>();
+  if (featureFlags is RemoteFeatureFlagService) {
+    await featureFlags.fetchRemoteFlags();
+  }
+  
+  runApp(const MyApp());
+}
+```
+
+### Periodic Refresh
+
+```dart
+class FeatureFlagRefreshService {
+  final IFeatureFlagService _featureFlags;
+  Timer? _refreshTimer;
+  
+  FeatureFlagRefreshService({required IFeatureFlagService featureFlags})
+      : _featureFlags = featureFlags;
+  
+  void startPeriodicRefresh({Duration interval = const Duration(hours: 1)}) {
+    _refreshTimer = Timer.periodic(interval, (_) async {
+      if (_featureFlags is RemoteFeatureFlagService) {
+        await (_featureFlags as RemoteFeatureFlagService).fetchRemoteFlags();
+      }
+    });
+  }
+  
+  void stopPeriodicRefresh() {
+    _refreshTimer?.cancel();
   }
 }
 ```
