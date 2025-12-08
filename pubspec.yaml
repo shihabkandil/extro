@@ -35,7 +35,7 @@ dependencies:
   intl: ^0.20.2
   
   # Authentication
-  google_sign_in: ^6.1.5
+  google_sign_in: ^7.2.0
   sign_in_with_apple: ^7.0.1
 
 dev_dependencies:
