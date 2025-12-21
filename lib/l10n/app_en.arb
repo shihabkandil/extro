@@ -95,5 +95,77 @@
   "signInCancelled": "Sign in was cancelled.",
   "@signInCancelled": {
     "description": "Message when user cancels sign in"
+  },
+  "goodMorning": "Good Morning,",
+  "@goodMorning": {
+    "description": "Morning greeting message"
+  },
+  "goodAfternoon": "Good Afternoon,",
+  "@goodAfternoon": {
+    "description": "Afternoon greeting message"
+  },
+  "goodEvening": "Good Evening,",
+  "@goodEvening": {
+    "description": "Evening greeting message"
+  },
+  "totalBalance": "Total Balance",
+  "@totalBalance": {
+    "description": "Total balance label"
+  },
+  "fromLastMonth": "from last month",
+  "@fromLastMonth": {
+    "description": "Comparison text for balance change"
+  },
+  "wallets": "Wallets",
+  "@wallets": {
+    "description": "Wallets section title"
+  },
+  "viewAll": "View all",
+  "@viewAll": {
+    "description": "View all link text"
+  },
+  "seeAll": "See all",
+  "@seeAll": {
+    "description": "See all link text"
+  },
+  "weeklySpending": "Weekly Spending",
+  "@weeklySpending": {
+    "description": "Weekly spending chart title"
+  },
+  "lastSevenDays": "Last 7 Days",
+  "@lastSevenDays": {
+    "description": "Last 7 days label"
+  },
+  "vsLastWeek": "vs last week",
+  "@vsLastWeek": {
+    "description": "Comparison text for weekly spending"
+  },
+  "overview": "Overview",
+  "@overview": {
+    "description": "Overview navigation item"
+  },
+  "history": "History",
+  "@history": {
+    "description": "History navigation item"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings navigation item"
+  },
+  "usdBalance": "USD Balance",
+  "@usdBalance": {
+    "description": "USD balance label"
+  },
+  "gbpBalance": "GBP Balance",
+  "@gbpBalance": {
+    "description": "GBP balance label"
+  },
+  "egpBalance": "EGP Balance",
+  "@egpBalance": {
+    "description": "EGP balance label"
+  },
+  "synced": "Synced",
+  "@synced": {
+    "description": "Sync status indicator"
   }
 }
