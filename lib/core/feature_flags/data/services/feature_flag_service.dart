@@ -8,9 +8,7 @@ class FeatureFlagService implements IFeatureFlagService {
   static const bool _defaultFlagValue = true;
   static const bool _disabled = false;
 
-  final Map<String, bool> _flags = {
-    FeatureFlag.oauthProviders.name: _disabled,
-  };
+  final Map<String, bool> _flags = {FeatureFlag.oauthProviders.name: _disabled};
 
   @override
   bool isEnabled(FeatureFlag flag) {
