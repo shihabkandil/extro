@@ -1,94 +1,106 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
-import 'package:extro/core/router/app_router.gr.dart';
+import 'package:extro/core/failures/display_error.dart';
+import 'package:extro/core/feature_flags/domain/feature_flag.dart';
+import 'package:extro/core/feature_flags/utils/feature_flag_extensions.dart';
+import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_cubit.dart';
+import 'package:extro/features/auth/domain/entities/oauth_provider.dart';
+import 'package:extro/features/auth/presentation/widgets/sign_in_button.dart';
 import 'package:extro/core/theme/app_colors.dart';
+import 'package:extro/core/router/app_router.gr.dart';
 import 'package:flutter/material.dart';
-
-@RoutePage()
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = context.colorScheme;
-    final textTheme = context.textTheme;
-    final localizer = context.localizer;
-
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                const SizedBox(height: 32),
-                // Logo
-                Container(
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [AppColors.primary, AppColors.backgroundDark],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
+        child: BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              failure: (failure) {
+                AppToast.showError(
+                  DisplayError.fromFailure(context.localizer, failure),
+                );
+              },
+              authenticated: (user) {
+                AppToast.showSuccess(
+                  '${context.localizer.welcomeBack} ${user.name ?? user.email}!',
+                );
+              },
+            );
+          },
+          builder: (context, state) {
+            final isLoading = state.maybeWhen(
+              loading: () => true,
+              orElse: () => false,
+            );
+
+            return Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Icon(
+                      Icons.account_balance_wallet,
+                      size: 80,
+                      color: Colors.blue,
                     ),
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.primary.withAlpha(38),
-                        blurRadius: 16,
-                        offset: const Offset(0, 4),
+                    const SizedBox(height: 24),
+                    Text(
+                      context.localizer.appTitle,
+                      style: Theme.of(context).textTheme.headlineLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      context.localizer.welcomeBack,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    if (context.isFeatureEnabled(
+                      FeatureFlag.oauthProviders,
+                    )) ...[
+                      Text(
+                        context.localizer.signInToContinue,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Colors.grey[600],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 48),
+                      SignInButton(
+                        provider: OAuthProvider.google,
+                        isLoading: isLoading,
+                        onPressed: () {
+                          context.read<AuthCubit>().signInWithProvider(
+                            OAuthProvider.google,
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      SignInButton(
+                        provider: OAuthProvider.apple,
+                        isLoading: isLoading,
+                        onPressed: () {
+                          context.read<AuthCubit>().signInWithProvider(
+                            OAuthProvider.apple,
+                          );
+                        },
                       ),
                     ],
-                  ),
-                  child: Container(
-                    margin: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: AppColors.backgroundDark,
-                      borderRadius: BorderRadius.circular(18),
-                      border: Border.all(color: Colors.white10),
-                    ),
-                    child: const Center(
-                      child: Icon(
-                        Icons.account_balance_wallet,
-                        color: AppColors.primary,
-                        size: 32,
-                      ),
-                    ),
-                  ),
+                    const SizedBox(height: 24),
+                    // Fallback: continue without login
+                    _SocialLoginButtons(),
+                    const SizedBox(height: 24),
+                    _LoginFooter(),
+                  ],
                 ),
-                const SizedBox(height: 20),
-                // Title
-                Text(
-                  localizer.masterYourMoney,
-                  style: textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: colorScheme.onSurface,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 8),
-                // Subtitle
-                Text(
-                  localizer.trackExpensesSubtitle,
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurface.withAlpha(179),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 28),
-                // Social login buttons
-                _SocialLoginButtons(),
-                const SizedBox(height: 24),
-                // Divider
-                Row(
-                  children: [
-                    Expanded(
-                      child: Divider(
-                        thickness: 1,
-                        color: colorScheme.outlineVariant,
+              ),
+            );
+          },
+        ),
+      ),
+    );
                       ),
                     ),
                     Padding(
@@ -139,6 +151,92 @@ class LoginScreen extends StatelessWidget {
               ],
             ),
           ),
+=======
+    return Scaffold(
+      body: SafeArea(
+        child: BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, state) {
+            state.whenOrNull(
+              failure: (failure) {
+                AppToast.showError(
+                  DisplayError.fromFailure(context.localizer, failure),
+                );
+              },
+              authenticated: (user) {
+                AppToast.showSuccess(
+                  '${context.localizer.welcomeBack} ${user.name ?? user.email}!',
+                );
+              },
+            );
+          },
+          builder: (context, state) {
+            final isLoading = state.maybeWhen(
+              loading: () => true,
+              orElse: () => false,
+            );
+
+            return Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Icon(
+                      Icons.account_balance_wallet,
+                      size: 80,
+                      color: Colors.blue,
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      context.localizer.appTitle,
+                      style: Theme.of(context).textTheme.headlineLarge,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      context.localizer.welcomeBack,
+                      style: Theme.of(context).textTheme.headlineSmall,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    if (context.isFeatureEnabled(
+                      FeatureFlag.oauthProviders,
+                    )) ...[
+                      Text(
+                        context.localizer.signInToContinue,
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Colors.grey[600],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 48),
+                      SignInButton(
+                        provider: OAuthProvider.google,
+                        isLoading: isLoading,
+                        onPressed: () {
+                          context.read<AuthCubit>().signInWithProvider(
+                            OAuthProvider.google,
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 16),
+                      SignInButton(
+                        provider: OAuthProvider.apple,
+                        isLoading: isLoading,
+                        onPressed: () {
+                          context.read<AuthCubit>().signInWithProvider(
+                            OAuthProvider.apple,
+                          );
+                        },
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            );
+          },
+>>>>>>> develop
         ),
       ),
     );
