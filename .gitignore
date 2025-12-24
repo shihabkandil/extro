@@ -45,14 +45,21 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Generated files
-*.g.dart
+# === Generated files (do not commit) ===
+# AutoRoute
+*.gr.dart
+# Freezed
 *.freezed.dart
+# Injectable
 *.config.dart
-lib/gen/
+# JsonSerializable
+*.g.dart
+# Localization
 lib/l10n/generated/
 lib/l10n/app_localizations.dart
 lib/l10n/app_localizations_*.dart
+# Other codegen
+lib/gen/
 
 # Coverage
 coverage/
@@ -104,3 +111,4 @@ temp/
 
 
 pubspec.lock
+/lib/core/router/app_router.gr.dart
