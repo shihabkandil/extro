@@ -2,7 +2,6 @@ import 'package:extro/core/extensions/context_extensions.dart';
 import 'package:extro/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
-/// A widget that displays the weekly spending chart with a line graph.
 class WeeklySpendingChart extends StatelessWidget {
   final String totalAmount;
   final String percentageChange;
@@ -35,7 +34,6 @@ class WeeklySpendingChart extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // Header
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -81,7 +79,6 @@ class WeeklySpendingChart extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          // Chart
           SizedBox(
             height: 150,
             width: double.infinity,
@@ -95,7 +92,6 @@ class WeeklySpendingChart extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          // Day Labels
           const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -133,7 +129,6 @@ class _DayLabel extends StatelessWidget {
   }
 }
 
-/// Custom painter for the line chart with gradient fill.
 class _LineChartPainter extends CustomPainter {
   final List<double> data;
   final Color lineColor;
@@ -153,7 +148,6 @@ class _LineChartPainter extends CustomPainter {
     final minValue = data.reduce((a, b) => a < b ? a : b);
     final range = maxValue - minValue;
 
-    // Calculate points
     final points = <Offset>[];
     for (int i = 0; i < data.length; i++) {
       final x = (i / (data.length - 1)) * size.width;
@@ -165,7 +159,6 @@ class _LineChartPainter extends CustomPainter {
       points.add(Offset(x, y));
     }
 
-    // Draw gradient fill
     final gradientPath = Path();
     gradientPath.moveTo(0, size.height);
     gradientPath.lineTo(points.first.dx, points.first.dy);
@@ -186,7 +179,6 @@ class _LineChartPainter extends CustomPainter {
 
     canvas.drawPath(gradientPath, gradientPaint);
 
-    // Draw line
     final linePath = Path();
     linePath.moveTo(points.first.dx, points.first.dy);
 
@@ -203,7 +195,6 @@ class _LineChartPainter extends CustomPainter {
 
     canvas.drawPath(linePath, linePaint);
 
-    // Draw dots at each point
     final dotPaint = Paint()
       ..color = lineColor
       ..style = PaintingStyle.fill;

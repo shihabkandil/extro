@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
 import 'package:extro/core/theme/app_colors.dart';
 
-/// Data model for a navigation item.
 class NavItem {
   final IconData icon;
   final IconData activeIcon;
@@ -15,7 +14,6 @@ class NavItem {
   });
 }
 
-/// A widget that displays the bottom navigation bar with a centered FAB.
 class DashboardBottomNavBar extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
@@ -52,7 +50,6 @@ class DashboardBottomNavBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              // Overview
               _NavBarItem(
                 icon: Icons.dashboard_outlined,
                 activeIcon: Icons.dashboard,
@@ -60,7 +57,6 @@ class DashboardBottomNavBar extends StatelessWidget {
                 isSelected: currentIndex == 0,
                 onTap: () => onTap(0),
               ),
-              // History
               _NavBarItem(
                 icon: Icons.receipt_long_outlined,
                 activeIcon: Icons.receipt_long,
@@ -68,7 +64,6 @@ class DashboardBottomNavBar extends StatelessWidget {
                 isSelected: currentIndex == 1,
                 onTap: () => onTap(1),
               ),
-              // FAB Add Button
               Padding(
                 padding: const EdgeInsets.only(bottom: 16),
                 child: GestureDetector(
@@ -95,7 +90,6 @@ class DashboardBottomNavBar extends StatelessWidget {
                   ),
                 ),
               ),
-              // Wallets
               _NavBarItem(
                 icon: Icons.account_balance_wallet_outlined,
                 activeIcon: Icons.account_balance_wallet,
@@ -103,7 +97,6 @@ class DashboardBottomNavBar extends StatelessWidget {
                 isSelected: currentIndex == 2,
                 onTap: () => onTap(2),
               ),
-              // Settings
               _NavBarItem(
                 icon: Icons.settings_outlined,
                 activeIcon: Icons.settings,

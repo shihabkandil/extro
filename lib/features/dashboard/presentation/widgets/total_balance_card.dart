@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
 import 'package:extro/core/theme/app_colors.dart';
 
-/// A widget that displays the total balance card with gradient background,
-/// currency selector, and percentage change indicator.
 class TotalBalanceCard extends StatelessWidget {
   final String balance;
   final String currency;
@@ -39,7 +37,6 @@ class TotalBalanceCard extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          // Abstract Background Pattern - Top Right
           Positioned(
             right: -48,
             top: -48,
@@ -52,7 +49,6 @@ class TotalBalanceCard extends StatelessWidget {
               ),
             ),
           ),
-          // Abstract Background Pattern - Bottom Left
           Positioned(
             left: -48,
             bottom: -48,
@@ -65,7 +61,6 @@ class TotalBalanceCard extends StatelessWidget {
               ),
             ),
           ),
-          // Content
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -81,7 +76,6 @@ class TotalBalanceCard extends StatelessWidget {
                       letterSpacing: 0.3,
                     ),
                   ),
-                  // Currency Selector
                   GestureDetector(
                     onTap: onCurrencyTap,
                     child: Container(
@@ -116,7 +110,6 @@ class TotalBalanceCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 8),
-              // Balance Amount
               Text(
                 balance,
                 style: context.textTheme.headlineLarge?.copyWith(
@@ -126,7 +119,6 @@ class TotalBalanceCard extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              // Percentage Change
               Row(
                 children: [
                   Container(
