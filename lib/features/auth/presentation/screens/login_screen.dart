@@ -10,6 +10,7 @@ import 'package:extro/core/theme/app_colors.dart';
 import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:extro/features/auth/domain/entities/oauth_provider.dart';
 import 'package:extro/features/auth/presentation/widgets/sign_in_button.dart';
+import 'package:extro/common/presentation/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -114,13 +115,9 @@ class LoginScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                     ],
-                    ElevatedButton(
-                      onPressed: () =>
-                          context.pushRoute(const DashboardRoute()),
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                      ),
-                      child: Text(context.localizer.continueWithoutLogin),
+                    PrimaryButton(
+                      text: context.localizer.continueWithoutLogin,
+                      onPressed: () => context.pushRoute(const DashboardRoute()),
                     ),
                     const SizedBox(height: 16),
                     const _LoginFooter(),
