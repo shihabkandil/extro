@@ -31,6 +31,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       accentColor: AppColors.usdBlue,
     ),
     WalletData(
+      label: 'GBP Balance',
       balance: '£3,200.00',
       icon: Icons.currency_pound,
       accentColor: AppColors.gbpPurple,
@@ -52,6 +53,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       isIncome: false,
       icon: Icons.shopping_bag_outlined,
     ),
+    RecentTransactionData(
       title: 'Uber Ride',
       dateTime: 'Yesterday, 6:15 PM',
       amount: '-\$12.50',
@@ -76,6 +78,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     });
   }
 
+  void _onAddTap() {
     // TODO: Navigate to add transaction screen
   }
 
