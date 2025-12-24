@@ -202,30 +202,55 @@ extension TransactionResponseMapper on TransactionResponse {
 
 ## State Management
 
-### Cubit Implementation
+
+### Cubit Implementation Example (Reference: WalletCubit)
+### State File Example (Reference: WalletState)
+Use this template for all cubit state files:
+
+```dart
+import 'package:freezed_annotation/freezed_annotation.dart';
+import '../../entities/wallet.dart';
+import 'package:extro/core/failures/failure.dart';
+
+part 'wallet_state.freezed.dart';
+
+@freezed
+sealed class WalletState with _$WalletState {
+  const factory WalletState.initial() = _Initial;
+  const factory WalletState.loading() = _Loading;
+  const factory WalletState.success(List<Wallet> wallets) = _Success;
+  const factory WalletState.failure(Failure failure) = _Failure;
+}
+```
 1. Check `isClosed` before emitting
 2. Use constructor injection with locator fallback
 3. Handle errors with Either pattern
+4. Use proper imports and part statements
 
 ```dart
-class TransactionCubit extends Cubit<TransactionState> {
-  TransactionCubit({
-    ITransactionRepository? repository,
-  })  : _repository = repository ?? locator<ITransactionRepository>(),
-        super(const TransactionState.initial());
+import 'package:bloc/bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:extro/core/di/locator.dart';
+import '../../entities/wallet.dart';
+import '../../repositories/i_wallet_repository.dart';
 
-  final ITransactionRepository _repository;
+part 'wallet_state.dart';
+part 'wallet_cubit.freezed.dart';
 
-  Future<void> loadTransactions() async {
-    emit(const TransactionState.loading());
+class WalletCubit extends Cubit<WalletState> {
+  WalletCubit({IWalletRepository? repository})
+      : _repository = repository ?? locator<IWalletRepository>(),
+        super(const WalletState.initial());
 
-    final result = await _repository.getAll();
+  final IWalletRepository _repository;
 
+  Future<void> fetchWallets() async {
+    emit(const WalletState.loading());
+    final result = await _repository.getAllWallets();
     if (isClosed) return;
-
     result.fold(
-      (failure) => emit(TransactionState.failure(failure)),
-      (transactions) => emit(TransactionState.success(transactions)),
+      (failure) => emit(WalletState.failure(failure)),
+      (wallets) => emit(WalletState.success(wallets)),
     );
   }
 }
