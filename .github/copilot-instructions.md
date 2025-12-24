@@ -73,8 +73,9 @@ Write code that is self-explanatory through:
 - Minimal use of comments (only for complex logic)
 
 ### 3. Comments
-- **Avoid writing comments** unless it's a complex logic or something that truly needs clarification
-- Code should be self-documenting with clear variable and function names
+- **Do not write any code comments when the code is self-explanatory.**
+- Avoid writing comments unless it's a complex logic or something that truly needs clarification.
+- Code should be self-documenting with clear variable and function names.
 - Only add comments for:
   - Complex algorithms or business logic
   - Non-obvious workarounds
