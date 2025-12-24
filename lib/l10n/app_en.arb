@@ -167,5 +167,69 @@
   "synced": "Synced",
   "@synced": {
     "description": "Sync status indicator"
+  },
+  "masterYourMoney": "Master Your Money",
+  "@masterYourMoney": {
+    "description": "Login screen main title"
+  },
+  "trackExpensesSubtitle": "Track expenses in USD, GBP, and EGP. Securely synced across all devices.",
+  "@trackExpensesSubtitle": {
+    "description": "Login screen subtitle about multi-currency and sync"
+  },
+  "continueWithApple": "Continue with Apple",
+  "@continueWithApple": {
+    "description": "Apple social login button label"
+  },
+  "continueWithGoogle": "Continue with Google",
+  "@continueWithGoogle": {
+    "description": "Google social login button label"
+  },
+  "orContinueWithEmail": "Or continue with email",
+  "@orContinueWithEmail": {
+    "description": "Divider label for email login"
+  },
+  "emailAddress": "Email address",
+  "@emailAddress": {
+    "description": "Email input field label"
+  },
+  "password": "Password",
+  "@password": {
+    "description": "Password input field label"
+  },
+  "rememberMe": "Remember me",
+  "@rememberMe": {
+    "description": "Remember me checkbox label"
+  },
+  "forgotPassword": "Forgot password?",
+  "@forgotPassword": {
+    "description": "Forgot password link label"
+  },
+  "logIn": "Log In",
+  "@logIn": {
+    "description": "Login button label"
+  },
+  "dontHaveAccount": "Don't have an account?",
+  "@dontHaveAccount": {
+    "description": "Prompt for users without an account"
+  },
+  "signUp": "Sign up",
+  "@signUp": {
+    "description": "Sign up link label"
+  },
+  "privacyPolicy": "Privacy Policy",
+  "@privacyPolicy": {
+    "description": "Privacy Policy link label"
+  },
+  "termsOfService": "Terms of Service",
+  "@termsOfService": {
+    "description": "Terms of Service link label"
+  },
+  "continueWithoutLogin": "Continue without login",
+  "@continueWithoutLogin": {
+    "description": "Button label for continuing without logging in"
+  },
+  "orContinueWithoutLogin": "Or continue without login",
+  "@orContinueWithoutLogin": {
+    "description": "Divider label for continue without login option"
   }
 }

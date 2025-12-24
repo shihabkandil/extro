@@ -1,10 +1,9 @@
-import 'package:extro/common/presentation/ui_utils/app_toast.dart';
 import 'package:extro/core/di/locator.dart';
+import 'package:extro/core/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core/theme/app_theme.dart';
-import 'features/auth/presentation/screens/login_screen.dart';
 import 'l10n/generated/app_localizations.dart';
 
 void main() async {
@@ -19,9 +18,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Extro',
-      navigatorKey: AppToast.navigatorKey,
+      routerConfig: locator<AppRouter>().config(),
       theme: AppTheme.light,
       localizationsDelegates: const [
         AppLocalizations.delegate,
@@ -30,7 +29,6 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [Locale('en')],
-      home: const LoginScreen(),
     );
   }
 }
