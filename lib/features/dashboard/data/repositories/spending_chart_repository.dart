@@ -1,9 +1,12 @@
 import 'package:dartz/dartz.dart';
+import 'package:extro/core/failures/failure.dart';
+import 'package:injectable/injectable.dart';
+
 import '../../domain/entities/spending_chart.dart';
 import '../../domain/repositories/i_spending_chart_repository.dart';
 import '../data_sources/i_dashboard_local_data_source.dart';
-import 'package:extro/core/failures/failure.dart';
 
+@Singleton(as: ISpendingChartRepository)
 class SpendingChartRepository implements ISpendingChartRepository {
   final IDashboardLocalDataSource localDataSource;
 
