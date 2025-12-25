@@ -1,5 +1,17 @@
 # Coding Guidelines for AI Agents
 
+## ⚠️ CRITICAL: Code Consistency Principle
+
+**Before implementing ANY feature, the AI agent MUST:**
+1. **Search** for similar existing implementations in the codebase FIRST
+2. **Study** and follow the exact patterns, naming conventions, and structure used
+3. **Never** introduce new patterns when existing ones are established
+4. **Reference** existing features like `lib/features/auth/` or `lib/features/dashboard/` as templates
+
+> **Golden Rule**: Consistency with existing code is MORE important than "better" alternatives. Always match the project's established patterns exactly.
+
+---
+
 ## Project Overview
 
 Extro is a Flutter-based expense and income tracking application built following Clean Architecture principles. The project provides a solid foundation for building a scalable, maintainable mobile application with proper separation of concerns.
@@ -63,8 +75,13 @@ UI (Presentation Layer)
 
 ## General Principles
 
-### 1. Code Consistency
-Always maintain consistency with existing patterns. When implementing new features, reference existing implementations in similar features.
+### 1. Code Consistency (CRITICAL)
+**Always maintain consistency with existing patterns.** When implementing new features:
+- **FIRST**: Search the codebase for similar implementations
+- Reference existing features like `lib/features/auth/` or `lib/features/dashboard/`
+- Copy the exact structure, naming, and patterns used
+- Never deviate from established conventions even if you know a "better" way
+- When unsure, find an existing example and follow it exactly
 
 ### 2. Self-Documenting Code
 Write code that is self-explanatory through:
@@ -259,6 +276,11 @@ class WalletCubit extends Cubit<WalletState> {
   }
 }
 ```
+
+### Imports for Cubits
+- **Use** `import 'package:flutter_bloc/flutter_bloc.dart';` when implementing and consuming Cubits in the presentation layer (widgets and screens). This brings Flutter-friendly `BlocProvider`, `BlocBuilder`, `BlocConsumer`, and extension utilities.
+- **Avoid** `import 'package:bloc/bloc.dart';` in widget code; reserve it for low-level, non-UI Bloc implementations if required.
+
 
 ### BlocConsumer Pattern
 ```dart
@@ -701,3 +723,60 @@ class TransactionListScreen extends StatelessWidget {
 - **build_runner**: Code generation runner
 - **json_serializable**: JSON serialization
 - **injectable_generator**: DI code generation
+
+---
+
+## Quick Reference for AI Agents
+
+### When implementing a new feature:
+1. **FIRST**: Search codebase for similar feature (e.g., look at `auth/` or `dashboard/`)
+2. Copy the exact folder structure
+3. Create files matching the naming patterns
+4. Implement following the same code patterns
+5. Run code generation: `flutter pub run build_runner build --delete-conflicting-outputs`
+6. Run localization if needed: `flutter gen-l10n`
+7. Test your implementation
+
+### Essential Commands
+```bash
+# Code generation (REQUIRED after editing entities, states, models, DI)
+flutter pub run build_runner build --delete-conflicting-outputs
+
+# Localization (REQUIRED after editing lib/l10n/app_en.arb)
+flutter gen-l10n
+
+# Run app
+flutter run
+
+# Development with auto-regeneration
+flutter pub run build_runner watch --delete-conflicting-outputs
+```
+
+### Common mistakes to AVOID:
+- ❌ Using `Theme.of(context)` instead of `context.textTheme`
+- ❌ Using `AppLocalizations.of(context)` instead of `context.localizer`
+- ❌ Forgetting `if (isClosed) return;` before emit in cubits
+- ❌ Not running build_runner after creating Freezed classes
+- ❌ Creating new patterns instead of following existing ones
+- ❌ Hardcoding strings instead of using localization
+- ❌ Hardcoding colors instead of using `context.colorScheme`
+- ❌ Writing comments for self-explanatory code
+- ❌ Using `ListView` instead of `ListView.builder` for long lists
+
+### Code Review Checklist
+Before submitting any code:
+- [ ] **Searched for similar existing implementations and followed their patterns**
+- [ ] Follows existing code patterns exactly
+- [ ] Uses Freezed for models/states
+- [ ] Implements proper error handling with Either
+- [ ] Uses `context.localizer` for ALL strings
+- [ ] Uses `context.textTheme` for ALL text styles
+- [ ] Never uses `Theme.of(context)` directly
+- [ ] Checks `isClosed` in cubits before emit
+- [ ] Follows naming conventions (Response suffix, I prefix, etc.)
+- [ ] No unnecessary comments
+- [ ] Semantic commit messages
+- [ ] Code generation run successfully
+- [ ] Uses const constructors where possible
+- [ ] Proper widget organization (separate files in widgets directory)
+- [ ] Imports grouped correctly (Flutter → packages → local)

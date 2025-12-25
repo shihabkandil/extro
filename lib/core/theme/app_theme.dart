@@ -18,4 +18,18 @@ class AppTheme {
       elevation: 0,
     ),
   );
+
+  static ThemeData dark = ThemeData(
+    colorScheme: const ColorScheme.dark(
+      primary: AppColors.primary,
+      secondary: AppColors.secondary,
+      error: Colors.red,
+    ),
+    scaffoldBackgroundColor: AppColors.backgroundDark,
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
+      elevation: 0,
+    ),
+  );
 }
