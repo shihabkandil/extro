@@ -16,6 +16,8 @@ dependencies:
   flutter_bloc: ^9.1.1
   equatable: ^2.0.5
   
+  shared_preferences: ^2.5.4
+  
   # Dependency Injection
   get_it: ^9.2.0
   injectable: ^2.7.1+2
