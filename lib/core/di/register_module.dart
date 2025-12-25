@@ -14,8 +14,8 @@ abstract class RegisterModule {
   @preResolve
   Future<SharedPreferencesWithCache> get sharedPreferencesWithCache =>
       SharedPreferencesWithCache.create(
-    cacheOptions: const SharedPreferencesWithCacheOptions(
-      allowList: <String>{'theme_mode'},
-    ),
-  );
+        cacheOptions: const SharedPreferencesWithCacheOptions(
+          allowList: <String>{'theme_mode'},
+        ),
+      );
 }
