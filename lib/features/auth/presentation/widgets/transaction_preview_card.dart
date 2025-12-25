@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:extro/common/constants/app_strings.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
 import 'package:extro/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +81,7 @@ class TransactionPreviewCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            r'$ 1352.00',
+                            AppStrings.balanceAmount,
                             style: context.textTheme.headlineSmall?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
@@ -109,7 +110,7 @@ class TransactionPreviewCard extends StatelessWidget {
                     iconColor: AppColors.primary,
                     title: localizer.freelance,
                     subtitle: localizer.receivedToday,
-                    amount: r'+ $ 1,200.00',
+                    amount: AppStrings.freelanceAmount,
                     amountColor: AppColors.primary,
                   ),
                   const SizedBox(height: 16),
@@ -119,7 +120,7 @@ class TransactionPreviewCard extends StatelessWidget {
                     iconColor: AppColors.secondary,
                     title: localizer.londonTravel,
                     subtitle: localizer.tubeYesterday,
-                    amount: '- £ 14.50',
+                    amount: AppStrings.londonTravelAmount,
                     amountColor: AppColors.secondary,
                   ),
                   const SizedBox(height: 16),
@@ -129,7 +130,7 @@ class TransactionPreviewCard extends StatelessWidget {
                     iconColor: AppColors.secondary,
                     title: localizer.dinnerInCairo,
                     subtitle: localizer.foodTwoDaysAgo,
-                    amount: '- EGP 850.00',
+                    amount: AppStrings.dinnerAmount,
                     amountColor: AppColors.secondary,
                   ),
                 ],
