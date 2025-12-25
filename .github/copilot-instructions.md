@@ -227,6 +227,10 @@ sealed class WalletState with _$WalletState {
 3. Handle errors with Either pattern
 4. Use proper imports and part statements
 
+### Separation of Concerns: Cubits vs Services
+- Cubits should depend on abstract repository interfaces (e.g., `IWalletRepository`) rather than concrete implementations.
+- Use constructor injection with a locator fallback: `MyCubit({IMyService? service}) : _service = service ?? locator<IMyService>(), super(...);`.
+
 ```dart
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
