@@ -24,11 +24,7 @@ class WalletCard extends StatelessWidget {
   final WalletData wallet;
   final VoidCallback? onTap;
 
-  const WalletCard({
-    super.key,
-    required this.wallet,
-    this.onTap,
-  });
+  const WalletCard({super.key, required this.wallet, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +36,7 @@ class WalletCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.surfaceLight,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: AppColors.slate200,
-          ),
+          border: Border.all(color: AppColors.slate200),
           boxShadow: [
             BoxShadow(
               color: AppColors.black.withValues(alpha: 0.04),
@@ -65,11 +59,7 @@ class WalletCard extends StatelessWidget {
               ),
               child: Center(
                 child: wallet.icon != null
-                    ? Icon(
-                        wallet.icon,
-                        color: wallet.accentColor,
-                        size: 20,
-                      )
+                    ? Icon(wallet.icon, color: wallet.accentColor, size: 20)
                     : Text(
                         wallet.currencySymbol ?? '',
                         style: context.textTheme.labelMedium?.copyWith(

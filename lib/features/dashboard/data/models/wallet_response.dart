@@ -14,5 +14,6 @@ sealed class WalletResponse with _$WalletResponse {
     required String accentColor,
   }) = _WalletResponse;
 
-  factory WalletResponse.fromJson(Map<String, dynamic> json) => _$WalletResponseFromJson(json);
+  factory WalletResponse.fromJson(Map<String, dynamic> json) =>
+      _$WalletResponseFromJson(json);
 }

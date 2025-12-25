@@ -42,9 +42,7 @@ class RecentTransactionItem extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.surfaceLight,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: AppColors.slate200,
-            ),
+            border: Border.all(color: AppColors.slate200),
           ),
           child: Row(
             children: [
@@ -95,8 +93,9 @@ class RecentTransactionItem extends StatelessWidget {
               Text(
                 transaction.amount,
                 style: context.textTheme.bodyMedium?.copyWith(
-                  color:
-                      transaction.isIncome ? AppColors.primary : AppColors.secondary,
+                  color: transaction.isIncome
+                      ? AppColors.primary
+                      : AppColors.secondary,
                   fontWeight: FontWeight.bold,
                 ),
               ),

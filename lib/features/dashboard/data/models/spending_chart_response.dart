@@ -11,5 +11,6 @@ sealed class SpendingChartResponse with _$SpendingChartResponse {
     required String percentageChange,
   }) = _SpendingChartResponse;
 
-  factory SpendingChartResponse.fromJson(Map<String, dynamic> json) => _$SpendingChartResponseFromJson(json);
+  factory SpendingChartResponse.fromJson(Map<String, dynamic> json) =>
+      _$SpendingChartResponseFromJson(json);
 }

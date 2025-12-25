@@ -15,5 +15,6 @@ sealed class TransactionResponse with _$TransactionResponse {
     required int walletId,
   }) = _TransactionResponse;
 
-  factory TransactionResponse.fromJson(Map<String, dynamic> json) => _$TransactionResponseFromJson(json);
+  factory TransactionResponse.fromJson(Map<String, dynamic> json) =>
+      _$TransactionResponseFromJson(json);
 }

@@ -31,11 +31,7 @@ class DashboardBottomNavBar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: AppColors.surfaceLight,
-        border: const Border(
-          top: BorderSide(
-            color: AppColors.slate200,
-          ),
-        ),
+        border: const Border(top: BorderSide(color: AppColors.slate200)),
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withValues(alpha: 0.1),
@@ -142,11 +138,7 @@ class _NavBarItem extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(
-                isSelected ? activeIcon : icon,
-                color: color,
-                size: 24,
-              ),
+              Icon(isSelected ? activeIcon : icon, color: color, size: 24),
               const SizedBox(height: 4),
               Text(
                 label,

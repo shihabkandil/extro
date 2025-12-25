@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../../core/di/locator.dart';
@@ -11,8 +10,8 @@ part 'transaction_cubit.freezed.dart';
 
 class TransactionCubit extends Cubit<TransactionState> {
   TransactionCubit({ITransactionRepository? repository})
-      : _repository = repository ?? locator<ITransactionRepository>(),
-        super(const TransactionState.initial());
+    : _repository = repository ?? locator<ITransactionRepository>(),
+      super(const TransactionState.initial());
 
   final ITransactionRepository _repository;
 

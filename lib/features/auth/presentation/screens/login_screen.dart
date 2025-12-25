@@ -117,7 +117,8 @@ class LoginScreen extends StatelessWidget {
                     ],
                     PrimaryButton(
                       text: context.localizer.continueWithoutLogin,
-                      onPressed: () => context.pushRoute(const DashboardRoute()),
+                      onPressed: () =>
+                          context.pushRoute(const DashboardRoute()),
                     ),
                     const SizedBox(height: 16),
                     const _LoginFooter(),

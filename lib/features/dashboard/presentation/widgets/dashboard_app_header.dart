@@ -117,9 +117,7 @@ class DashboardAppHeader extends StatelessWidget {
                 child: Container(
                   width: 40,
                   height: 40,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                  ),
+                  decoration: const BoxDecoration(shape: BoxShape.circle),
                   child: const Icon(
                     Icons.notifications_outlined,
                     color: AppColors.slate700,

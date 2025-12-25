@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../../core/di/locator.dart';
@@ -11,8 +10,8 @@ part 'spending_chart_cubit.freezed.dart';
 
 class SpendingChartCubit extends Cubit<SpendingChartState> {
   SpendingChartCubit({ISpendingChartRepository? repository})
-      : _repository = repository ?? locator<ISpendingChartRepository>(),
-        super(const SpendingChartState.initial());
+    : _repository = repository ?? locator<ISpendingChartRepository>(),
+      super(const SpendingChartState.initial());
 
   final ISpendingChartRepository _repository;
 
