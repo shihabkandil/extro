@@ -30,6 +30,10 @@ class DisplayError {
         title: localizer.unknownError,
         message: message ?? localizer.unknownError,
       ),
+      cache: (message) => DisplayError(
+        title: localizer.unknownError,
+        message: message ?? localizer.unknownError,
+      ),
       unknown: (message) => DisplayError(
         title: localizer.unknownError,
         message: message ?? localizer.unknownError,
