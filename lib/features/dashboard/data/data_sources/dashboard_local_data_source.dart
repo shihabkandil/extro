@@ -1,8 +1,11 @@
-import 'i_dashboard_local_data_source.dart';
-import '../models/wallet_response.dart';
-import '../models/transaction_response.dart';
-import '../models/spending_chart_response.dart';
+import 'package:injectable/injectable.dart';
 
+import '../models/spending_chart_response.dart';
+import '../models/transaction_response.dart';
+import '../models/wallet_response.dart';
+import 'i_dashboard_local_data_source.dart';
+
+@Singleton(as: IDashboardLocalDataSource)
 class DashboardLocalDataSource implements IDashboardLocalDataSource {
   DashboardLocalDataSource();
 
