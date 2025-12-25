@@ -235,5 +235,57 @@
   "continueAsGuest": "Continue",
   "@continueAsGuest": {
     "description": "Button label for continuing as a guest user"
+  },
+  "appName": "Global Finance",
+  "@appName": {
+    "description": "Application name displayed on login screen"
+  },
+  "trackEvery": "Track Every",
+  "@trackEvery": {
+    "description": "First part of login headline"
+  },
+  "penny": "Penny",
+  "@penny": {
+    "description": "Highlighted word in login headline"
+  },
+  "loginSubtitle": "Seamlessly manage income & expenses across borders",
+  "@loginSubtitle": {
+    "description": "Login screen subtitle"
+  },
+  "offline": "Offline",
+  "@offline": {
+    "description": "Offline feature indicator"
+  },
+  "secure": "Secure",
+  "@secure": {
+    "description": "Secure feature indicator"
+  },
+  "multiCur": "Multi-Cur",
+  "@multiCur": {
+    "description": "Multi-currency feature indicator"
+  },
+  "freelance": "Freelance",
+  "@freelance": {
+    "description": "Freelance transaction category"
+  },
+  "receivedToday": "Received • Today",
+  "@receivedToday": {
+    "description": "Transaction received today"
+  },
+  "londonTravel": "London Travel",
+  "@londonTravel": {
+    "description": "London travel transaction"
+  },
+  "tubeYesterday": "Tube • Yesterday",
+  "@tubeYesterday": {
+    "description": "Tube transaction yesterday"
+  },
+  "dinnerInCairo": "Dinner in Cairo",
+  "@dinnerInCairo": {
+    "description": "Dinner in Cairo transaction"
+  },
+  "foodTwoDaysAgo": "Food • 2 days ago",
+  "@foodTwoDaysAgo": {
+    "description": "Food transaction 2 days ago"
   }
 }
