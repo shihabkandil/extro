@@ -37,30 +37,6 @@ class TotalBalanceCard extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Positioned(
-            right: -48,
-            top: -48,
-            child: Container(
-              width: 160,
-              height: 160,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.white.withValues(alpha: 0.1),
-              ),
-            ),
-          ),
-          Positioned(
-            left: -48,
-            bottom: -48,
-            child: Container(
-              width: 128,
-              height: 128,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.black.withValues(alpha: 0.1),
-              ),
-            ),
-          ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
