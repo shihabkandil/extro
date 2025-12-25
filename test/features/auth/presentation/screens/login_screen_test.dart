@@ -1,5 +1,3 @@
-import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_cubit.dart';
-import 'package:extro/features/auth/domain/entities/oauth_provider.dart';
 import 'package:extro/features/auth/presentation/widgets/feature_indicators.dart';
 import 'package:extro/features/auth/presentation/widgets/login_footer.dart';
 import 'package:extro/features/auth/presentation/widgets/login_header.dart';
@@ -7,22 +5,7 @@ import 'package:extro/features/auth/presentation/widgets/login_headline.dart';
 import 'package:extro/features/auth/presentation/widgets/transaction_preview_card.dart';
 import 'package:extro/l10n/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-class FakeAuthCubit extends Cubit<AuthState> implements AuthCubit {
-  FakeAuthCubit(super.initialState);
-
-  @override
-  Future<void> signInWithProvider(OAuthProvider provider) async {}
-
-  @override
-  void signOut() {
-    if (!isClosed) {
-      emit(const AuthState.initial());
-    }
-  }
-}
 
 void main() {
   group('LoginScreen Widgets', () {
