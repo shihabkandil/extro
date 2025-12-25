@@ -1,6 +1,7 @@
 [![iOS CI Build](https://github.com/shihabkandil/extro/actions/workflows/ios_ci.yaml/badge.svg)](https://github.com/shihabkandil/extro/actions/workflows/ios_ci.yaml)
 [![Android CI Build](https://github.com/shihabkandil/extro/actions/workflows/android_ci.yaml/badge.svg)](https://github.com/shihabkandil/extro/actions/workflows/android_ci.yaml)
 [![PR Analyze & Format Checks](https://github.com/shihabkandil/extro/actions/workflows/pr_analyze_checks.yaml/badge.svg)](https://github.com/shihabkandil/extro/actions/workflows/pr_analyze_checks.yaml)
+![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/shihabkandil/extro?utm_source=oss&utm_medium=github&utm_campaign=shihabkandil%2Fextro&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews)
 # Extro
 
 A Flutter expense and income tracking application built with Clean Architecture principles.
