@@ -31,7 +31,7 @@ class TransactionRepository implements ITransactionRepository {
           .toList();
       return Right(transactions);
     } catch (e) {
-      return Left(Failure.dataProcessing());
+      return const Left(Failure.dataProcessing());
     }
   }
 }

@@ -30,7 +30,7 @@ class WalletRepository implements IWalletRepository {
           .toList();
       return Right(wallets);
     } catch (e) {
-      return Left(Failure.dataProcessing());
+      return const Left(Failure.dataProcessing());
     }
   }
 }

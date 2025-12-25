@@ -23,7 +23,7 @@ class SpendingChartRepository implements ISpendingChartRepository {
       );
       return Right(chart);
     } catch (e) {
-      return Left(Failure.dataProcessing());
+      return const Left(Failure.dataProcessing());
     }
   }
 }
