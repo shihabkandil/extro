@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:extro/core/theme/app_colors.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
+import 'package:extro/core/theme/app_colors.dart';
 import 'package:extro/features/dashboard/presentation/widgets/dashboard_header.dart';
+import 'package:extro/features/dashboard/presentation/widgets/gradient_fab.dart';
 import 'package:extro/features/dashboard/presentation/widgets/metric_card.dart';
 import 'package:extro/features/dashboard/presentation/widgets/transaction_tile.dart';
-import 'package:extro/features/dashboard/presentation/widgets/gradient_fab.dart';
+import 'package:flutter/material.dart';
 
+@RoutePage()
 class FinancialDashboardScreen extends StatelessWidget {
   const FinancialDashboardScreen({super.key});
 
