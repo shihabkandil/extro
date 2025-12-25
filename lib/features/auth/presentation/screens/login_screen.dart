@@ -62,7 +62,7 @@ class LoginScreen extends StatelessWidget {
                       children: [
                         SizedBox(height: MediaQuery.viewPaddingOf(context).top),
                         const LoginHeader(),
-                        const Spacer(),
+                        const SizedBox(height: 16),
                         const LoginHeadline(),
                         const SizedBox(height: 32),
                         const TransactionPreviewCard(),

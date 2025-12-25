@@ -47,7 +47,7 @@ class LoginHeader extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          localizer.appName,
+          localizer.appTitle,
           style: context.textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
           ),
