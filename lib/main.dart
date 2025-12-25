@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:extro/core/di/locator.dart';
 import 'package:extro/core/router/app_router.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,7 @@ void main() async {
   await configureDependencies();
   await locator.allReady();
   // Initialize theme cubit with system brightness
-  await locator<ThemeCubit>().init(WidgetsBinding.instance.window.platformBrightness);
+  await locator<ThemeCubit>().init(PlatformDispatcher.instance.platformBrightness);
   runApp(const MyApp());
 }
 
