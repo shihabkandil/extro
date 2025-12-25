@@ -16,7 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
   await locator.allReady();
-  // Initialize theme cubit with system brightness
+
   await locator<ThemeCubit>().init(
     PlatformDispatcher.instance.platformBrightness,
   );

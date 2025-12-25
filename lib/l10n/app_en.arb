@@ -231,5 +231,9 @@
   "orContinueWithoutLogin": "Or continue without login",
   "@orContinueWithoutLogin": {
     "description": "Divider label for continue without login option"
+  },
+  "continueAsGuest": "Continue",
+  "@continueAsGuest": {
+    "description": "Button label for continuing as a guest user"
   }
 }

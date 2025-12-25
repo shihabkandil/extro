@@ -11,6 +11,8 @@ class AppTheme {
       primary: AppColors.primary,
       secondary: AppColors.secondary,
       error: Colors.red,
+      surface: AppColors.backgroundLight,
+      inverseSurface: Colors.black,
     ),
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.transparent,
@@ -24,6 +26,8 @@ class AppTheme {
       primary: AppColors.primary,
       secondary: AppColors.secondary,
       error: Colors.red,
+      surface: AppColors.backgroundDark,
+      inverseSurface: Colors.white,
     ),
     scaffoldBackgroundColor: AppColors.backgroundDark,
     appBarTheme: const AppBarTheme(

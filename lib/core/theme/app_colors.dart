@@ -10,7 +10,7 @@ class AppColors {
 
   // Background colors
   static const Color backgroundLight = Color(0xFFF6F8F8);
-  static const Color backgroundDark = Color(0xFF12201F);
+  static const Color backgroundDark = Color(0xFF1A1A1A);
 
   // Surface colors (for cards, containers)
   static const Color surfaceLight = Color(0xFFFFFFFF);

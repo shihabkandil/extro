@@ -1,6 +1,6 @@
-// Clean LoginScreen implementation (single, non-duplicated)
 import 'package:auto_route/auto_route.dart';
 import 'package:extro/common/presentation/ui_utils/app_toast.dart';
+import 'package:extro/common/presentation/widgets/primary_button.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
 import 'package:extro/core/failures/display_error.dart';
 import 'package:extro/core/feature_flags/domain/feature_flag.dart';
@@ -10,7 +10,6 @@ import 'package:extro/core/theme/app_colors.dart';
 import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:extro/features/auth/domain/entities/oauth_provider.dart';
 import 'package:extro/features/auth/presentation/widgets/sign_in_button.dart';
-import 'package:extro/common/presentation/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,7 +20,7 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundLight,
+      backgroundColor: context.colorScheme.surface,
       body: SafeArea(
         child: BlocConsumer<AuthCubit, AuthState>(
           listener: (context, state) {
@@ -41,13 +40,12 @@ class LoginScreen extends StatelessWidget {
             );
 
             return Center(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
                 child: Column(
+                  spacing: 20,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const SizedBox(height: 32),
-                    // Logo
                     Container(
                       width: 64,
                       height: 64,
@@ -82,13 +80,12 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const Spacer(),
                     Text(
                       context.localizer.masterYourMoney,
                       textAlign: TextAlign.center,
                       style: context.textTheme.headlineSmall,
                     ),
-                    const SizedBox(height: 8),
                     if (context.isFeatureEnabled(
                       FeatureFlag.oauthProviders,
                     )) ...[
@@ -116,11 +113,11 @@ class LoginScreen extends StatelessWidget {
                       const SizedBox(height: 16),
                     ],
                     PrimaryButton(
-                      text: context.localizer.continueWithoutLogin,
+                      text: context.localizer.continueAsGuest,
                       onPressed: () =>
                           context.pushRoute(const DashboardRoute()),
                     ),
-                    const SizedBox(height: 16),
+                    const Spacer(),
                     const _LoginFooter(),
                   ],
                 ),
