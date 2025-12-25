@@ -17,7 +17,9 @@ void main() async {
   await configureDependencies();
   await locator.allReady();
   // Initialize theme cubit with system brightness
-  await locator<ThemeCubit>().init(PlatformDispatcher.instance.platformBrightness);
+  await locator<ThemeCubit>().init(
+    PlatformDispatcher.instance.platformBrightness,
+  );
   runApp(const MyApp());
 }
 

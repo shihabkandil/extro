@@ -33,7 +33,11 @@ class ThemeRepository implements IThemeRepository {
           return const Right(ThemeMode.system);
       }
     } catch (e, stackTrace) {
-      log('Failed to get saved theme mode: $e', error: e, stackTrace: stackTrace);
+      log(
+        'Failed to get saved theme mode: $e',
+        error: e,
+        stackTrace: stackTrace,
+      );
       return Left(Failure.cache(message: e.toString()));
     }
   }
