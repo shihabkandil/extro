@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
-import 'package:extro/core/theme/app_colors.dart';
 import 'package:extro/features/dashboard/presentation/widgets/bottom_nav_bar.dart';
 import 'package:extro/features/dashboard/presentation/widgets/dashboard_app_header.dart';
 import 'package:extro/features/dashboard/presentation/widgets/recent_transaction_item.dart';
@@ -48,7 +47,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ],
       child: Scaffold(
-        backgroundColor: AppColors.backgroundLight,
         body: SafeArea(
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),

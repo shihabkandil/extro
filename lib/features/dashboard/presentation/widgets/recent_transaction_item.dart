@@ -40,9 +40,9 @@ class RecentTransactionItem extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: AppColors.surfaceLight,
+            color: context.colorScheme.onSurface,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.slate200),
+            border: Border.all(color: context.colorScheme.onSurface),
           ),
           child: Row(
             children: [
@@ -52,9 +52,7 @@ class RecentTransactionItem extends StatelessWidget {
                 height: 40,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: transaction.isIncome
-                      ? AppColors.primary.withValues(alpha: 0.1)
-                      : AppColors.slate100,
+                  color: context.colorScheme.onSurface,
                 ),
                 child: Icon(
                   transaction.icon,
@@ -73,7 +71,7 @@ class RecentTransactionItem extends StatelessWidget {
                     Text(
                       transaction.title,
                       style: context.textTheme.bodyMedium?.copyWith(
-                        color: AppColors.textDark,
+                        color: context.colorScheme.inverseSurface,
                         fontWeight: FontWeight.w600,
                       ),
                       maxLines: 1,
@@ -83,7 +81,7 @@ class RecentTransactionItem extends StatelessWidget {
                     Text(
                       transaction.dateTime,
                       style: context.textTheme.labelSmall?.copyWith(
-                        color: AppColors.slate500,
+                        color: context.colorScheme.inverseSurface,
                       ),
                     ),
                   ],

@@ -26,11 +26,11 @@ class TransactionTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: AppColors.white,
+        color: context.colorScheme.onSurface,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: context.colorScheme.onSurface.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -42,7 +42,7 @@ class TransactionTile extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: AppColors.white,
+              color: context.colorScheme.onSurface,
               shape: BoxShape.circle,
               border: Border.all(
                 color: transaction.isIncome
@@ -68,14 +68,14 @@ class TransactionTile extends StatelessWidget {
                   transaction.title,
                   style: context.textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textDark,
+                    color: context.colorScheme.inverseSurface,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   transaction.category,
                   style: context.textTheme.bodyMedium?.copyWith(
-                    color: AppColors.textGrey,
+                    color: context.colorScheme.inverseSurface,
                   ),
                 ),
               ],

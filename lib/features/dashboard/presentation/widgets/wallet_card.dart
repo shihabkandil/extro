@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
-import 'package:extro/core/theme/app_colors.dart';
 
 /// Data model for a wallet/currency card.
 class WalletData {
@@ -34,12 +33,12 @@ class WalletCard extends StatelessWidget {
         constraints: const BoxConstraints(minWidth: 140),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: AppColors.surfaceLight,
+          color: context.colorScheme.onSurface,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.slate200),
+          border: Border.all(color: context.colorScheme.onSurface),
           boxShadow: [
             BoxShadow(
-              color: AppColors.black.withValues(alpha: 0.04),
+              color: context.colorScheme.onSurface.withValues(alpha: 0.04),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -74,7 +73,7 @@ class WalletCard extends StatelessWidget {
             Text(
               wallet.label,
               style: context.textTheme.labelSmall?.copyWith(
-                color: AppColors.slate500,
+                color: context.colorScheme.inverseSurface,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -83,7 +82,7 @@ class WalletCard extends StatelessWidget {
             Text(
               wallet.balance,
               style: context.textTheme.titleMedium?.copyWith(
-                color: AppColors.textDark,
+                color: context.colorScheme.inverseSurface,
                 fontWeight: FontWeight.bold,
               ),
             ),

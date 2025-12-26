@@ -21,9 +21,8 @@ class WeeklySpendingChart extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: AppColors.surfaceLight,
+        color: context.colorScheme.onSurface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.slate200),
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withValues(alpha: 0.04),
@@ -43,7 +42,6 @@ class WeeklySpendingChart extends StatelessWidget {
                   Text(
                     context.localizer.weeklySpending,
                     style: context.textTheme.titleMedium?.copyWith(
-                      color: AppColors.textDark,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
