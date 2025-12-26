@@ -1,4 +1,4 @@
-name: PR Analyze & Format Checks
+name: Analyze & Format & Test
 
 on:
   push:
