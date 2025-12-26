@@ -289,7 +289,7 @@ void main() {
         expect(cubit.state, equals(const AuthState.loading()));
 
         await future;
-        expect(cubit.state.toString().contains('Failure'), true);
+        expect(cubit.state, equals(const AuthState.failure(failure)));
       });
     });
 
