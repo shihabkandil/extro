@@ -1,3 +1,4 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:dartz/dartz.dart';
 import 'package:extro/core/failures/failure.dart';
 import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_cubit.dart';
@@ -36,9 +37,9 @@ void main() {
     });
 
     group('signInWithProvider', () {
-      test(
+      blocTest<AuthCubit, AuthState>(
         'emits [loading, authenticated] when sign in succeeds with Google',
-        () async {
+        build: () {
           when(
             () => mockRepository.getProviderToken(OAuthProvider.google),
           ).thenAnswer((_) async => const Right(testToken));
@@ -50,41 +51,36 @@ void main() {
             ),
           ).thenAnswer((_) async => const Right(testUser));
 
-          final cubit = AuthCubit(repository: mockRepository);
-          final states = <AuthState>[];
-          cubit.stream.listen(states.add);
-
-          await cubit.signInWithProvider(OAuthProvider.google);
-          await Future.delayed(const Duration(milliseconds: 100));
-
-          expect(states.length, equals(2));
-          expect(states[0], equals(const AuthState.loading()));
-          expect(states[1], equals(const AuthState.authenticated(testUser)));
+          return AuthCubit(repository: mockRepository);
         },
+        act: (cubit) => cubit.signInWithProvider(OAuthProvider.google),
+        expect: () => [
+          const AuthState.loading(),
+          const AuthState.authenticated(testUser),
+        ],
       );
 
-      test('emits [loading, failure] when provider token fails', () async {
-        const failure = Failure.authentication();
+      blocTest<AuthCubit, AuthState>(
+        'emits [loading, failure] when provider token fails',
+        build: () {
+          const failure = Failure.authentication();
 
-        when(
-          () => mockRepository.getProviderToken(OAuthProvider.google),
-        ).thenAnswer((_) async => const Left(failure));
+          when(
+            () => mockRepository.getProviderToken(OAuthProvider.google),
+          ).thenAnswer((_) async => const Left(failure));
 
-        final cubit = AuthCubit(repository: mockRepository);
-        final states = <AuthState>[];
-        cubit.stream.listen(states.add);
+          return AuthCubit(repository: mockRepository);
+        },
+        act: (cubit) => cubit.signInWithProvider(OAuthProvider.google),
+        expect: () => [
+          const AuthState.loading(),
+          const AuthState.failure(Failure.authentication()),
+        ],
+      );
 
-        await cubit.signInWithProvider(OAuthProvider.google);
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        expect(states.length, equals(2));
-        expect(states[0], equals(const AuthState.loading()));
-        expect(states[1], equals(const AuthState.failure(failure)));
-      });
-
-      test(
+      blocTest<AuthCubit, AuthState>(
         'emits [loading, failure] when backend authentication fails',
-        () async {
+        build: () {
           const failure = Failure.network();
 
           when(
@@ -98,243 +94,258 @@ void main() {
             ),
           ).thenAnswer((_) async => const Left(failure));
 
-          final cubit = AuthCubit(repository: mockRepository);
-          final states = <AuthState>[];
-          cubit.stream.listen(states.add);
+          return AuthCubit(repository: mockRepository);
+        },
+        act: (cubit) => cubit.signInWithProvider(OAuthProvider.apple),
+        expect: () => [
+          const AuthState.loading(),
+          const AuthState.failure(Failure.network()),
+        ],
+      );
 
-          await cubit.signInWithProvider(OAuthProvider.apple);
-          await Future.delayed(const Duration(milliseconds: 100));
+      blocTest<AuthCubit, AuthState>(
+        'calls getProviderToken with correct provider',
+        build: () {
+          when(
+            () => mockRepository.getProviderToken(OAuthProvider.google),
+          ).thenAnswer((_) async => const Right(testToken));
 
-          expect(states.length, equals(2));
-          expect(states[0], equals(const AuthState.loading()));
-          expect(states[1], equals(const AuthState.failure(failure)));
+          when(
+            () => mockRepository.authenticateWithBackend(
+              testToken,
+              OAuthProvider.google,
+            ),
+          ).thenAnswer((_) async => const Right(testUser));
+
+          return AuthCubit(repository: mockRepository);
+        },
+        act: (cubit) => cubit.signInWithProvider(OAuthProvider.google),
+        expect: () => [
+          const AuthState.loading(),
+          const AuthState.authenticated(testUser),
+        ],
+        verify: (cubit) {
+          verify(
+            () => mockRepository.getProviderToken(OAuthProvider.google),
+          ).called(1);
         },
       );
 
-      test('calls getProviderToken with correct provider', () async {
-        when(
-          () => mockRepository.getProviderToken(OAuthProvider.google),
-        ).thenAnswer((_) async => const Right(testToken));
+      blocTest<AuthCubit, AuthState>(
+        'calls authenticateWithBackend with correct parameters',
+        build: () {
+          when(
+            () => mockRepository.getProviderToken(OAuthProvider.apple),
+          ).thenAnswer((_) async => const Right(testToken));
 
-        when(
-          () => mockRepository.authenticateWithBackend(
-            testToken,
-            OAuthProvider.google,
-          ),
-        ).thenAnswer((_) async => const Right(testUser));
+          when(
+            () => mockRepository.authenticateWithBackend(
+              testToken,
+              OAuthProvider.apple,
+            ),
+          ).thenAnswer((_) async => const Right(testUser));
 
-        final cubit = AuthCubit(repository: mockRepository);
-        await cubit.signInWithProvider(OAuthProvider.google);
+          return AuthCubit(repository: mockRepository);
+        },
+        act: (cubit) => cubit.signInWithProvider(OAuthProvider.apple),
+        expect: () => [
+          const AuthState.loading(),
+          const AuthState.authenticated(testUser),
+        ],
+        verify: (cubit) {
+          verify(
+            () => mockRepository.authenticateWithBackend(
+              testToken,
+              OAuthProvider.apple,
+            ),
+          ).called(1);
+        },
+      );
 
-        verify(
-          () => mockRepository.getProviderToken(OAuthProvider.google),
-        ).called(1);
-      });
+      blocTest<AuthCubit, AuthState>(
+        'works with different providers',
+        build: () {
+          when(
+            () => mockRepository.getProviderToken(any()),
+          ).thenAnswer((_) async => const Right(testToken));
 
-      test('calls authenticateWithBackend with correct parameters', () async {
-        when(
-          () => mockRepository.getProviderToken(OAuthProvider.apple),
-        ).thenAnswer((_) async => const Right(testToken));
+          when(
+            () => mockRepository.authenticateWithBackend(any(), any()),
+          ).thenAnswer((_) async => const Right(testUser));
 
-        when(
-          () => mockRepository.authenticateWithBackend(
-            testToken,
-            OAuthProvider.apple,
-          ),
-        ).thenAnswer((_) async => const Right(testUser));
-
-        final cubit = AuthCubit(repository: mockRepository);
-        await cubit.signInWithProvider(OAuthProvider.apple);
-
-        verify(
-          () => mockRepository.authenticateWithBackend(
-            testToken,
-            OAuthProvider.apple,
-          ),
-        ).called(1);
-      });
-
-      test('works with different providers', () async {
-        when(
-          () => mockRepository.getProviderToken(any()),
-        ).thenAnswer((_) async => const Right(testToken));
-
-        when(
-          () => mockRepository.authenticateWithBackend(any(), any()),
-        ).thenAnswer((_) async => const Right(testUser));
-
-        final cubit = AuthCubit(repository: mockRepository);
-        final states = <AuthState>[];
-        cubit.stream.listen(states.add);
-
-        await cubit.signInWithProvider(OAuthProvider.google);
-        await cubit.signInWithProvider(OAuthProvider.apple);
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        expect(states.length, equals(4));
-        expect(states[0], equals(const AuthState.loading()));
-        expect(states[1], equals(const AuthState.authenticated(testUser)));
-        expect(states[2], equals(const AuthState.loading()));
-        expect(states[3], equals(const AuthState.authenticated(testUser)));
-      });
+          return AuthCubit(repository: mockRepository);
+        },
+        act: (cubit) async {
+          await cubit.signInWithProvider(OAuthProvider.google);
+          await cubit.signInWithProvider(OAuthProvider.apple);
+        },
+        expect: () => [
+          const AuthState.loading(),
+          const AuthState.authenticated(testUser),
+          const AuthState.loading(),
+          const AuthState.authenticated(testUser),
+        ],
+      );
     });
 
     group('signOut', () {
-      test('emits initial state when signing out from authenticated', () async {
-        final cubit = AuthCubit(repository: mockRepository);
-        final states = <AuthState>[];
-        cubit.stream.listen(states.add);
+      blocTest<AuthCubit, AuthState>(
+        'emits initial state when signing out from authenticated',
+        build: () => AuthCubit(repository: mockRepository),
+        seed: () => const AuthState.authenticated(testUser),
+        act: (cubit) => cubit.signOut(),
+        expect: () => [const AuthState.initial()],
+      );
 
-        cubit.emit(const AuthState.authenticated(testUser));
-        cubit.signOut();
-        await Future.delayed(const Duration(milliseconds: 50));
+      blocTest<AuthCubit, AuthState>(
+        'emits initial state when signing out from failure',
+        build: () => AuthCubit(repository: mockRepository),
+        seed: () => const AuthState.failure(Failure.network()),
+        act: (cubit) => cubit.signOut(),
+        expect: () => [const AuthState.initial()],
+      );
 
-        expect(states.last, equals(const AuthState.initial()));
-      });
+      blocTest<AuthCubit, AuthState>(
+        'can sign in again after signing out',
+        build: () {
+          when(
+            () => mockRepository.getProviderToken(OAuthProvider.google),
+          ).thenAnswer((_) async => const Right(testToken));
 
-      test('emits initial state when signing out from failure', () async {
-        final cubit = AuthCubit(repository: mockRepository);
-        final states = <AuthState>[];
-        cubit.stream.listen(states.add);
+          when(
+            () => mockRepository.authenticateWithBackend(
+              testToken,
+              OAuthProvider.google,
+            ),
+          ).thenAnswer((_) async => const Right(testUser));
 
-        cubit.emit(const AuthState.failure(Failure.network()));
-        cubit.signOut();
-        await Future.delayed(const Duration(milliseconds: 50));
-
-        expect(states.last, equals(const AuthState.initial()));
-      });
-
-      test('can sign in again after signing out', () async {
-        when(
-          () => mockRepository.getProviderToken(OAuthProvider.google),
-        ).thenAnswer((_) async => const Right(testToken));
-
-        when(
-          () => mockRepository.authenticateWithBackend(
-            testToken,
-            OAuthProvider.google,
-          ),
-        ).thenAnswer((_) async => const Right(testUser));
-
-        final cubit = AuthCubit(repository: mockRepository);
-        final states = <AuthState>[];
-        cubit.stream.listen(states.add);
-
-        cubit.emit(const AuthState.authenticated(testUser));
-        cubit.signOut();
-        await Future.delayed(const Duration(milliseconds: 50));
-
-        expect(states.contains(const AuthState.initial()), true);
-
-        await cubit.signInWithProvider(OAuthProvider.google);
-        await Future.delayed(const Duration(milliseconds: 100));
-
-        expect(cubit.state, equals(const AuthState.authenticated(testUser)));
-      });
+          return AuthCubit(repository: mockRepository);
+        },
+        seed: () => const AuthState.authenticated(testUser),
+        act: (cubit) async {
+          cubit.signOut();
+          await cubit.signInWithProvider(OAuthProvider.google);
+        },
+        expect: () => [
+          const AuthState.initial(),
+          const AuthState.loading(),
+          const AuthState.authenticated(testUser),
+        ],
+      );
     });
 
     group('State Transitions', () {
-      test('transitions from initial to loading to authenticated', () async {
-        when(
-          () => mockRepository.getProviderToken(OAuthProvider.google),
-        ).thenAnswer((_) async {
-          await Future.delayed(const Duration(milliseconds: 100));
-          return const Right(testToken);
-        });
+      blocTest<AuthCubit, AuthState>(
+        'transitions from initial to loading to authenticated',
+        build: () {
+          when(
+            () => mockRepository.getProviderToken(OAuthProvider.google),
+          ).thenAnswer((_) async {
+            return const Right(testToken);
+          });
 
-        when(
-          () => mockRepository.authenticateWithBackend(
-            testToken,
-            OAuthProvider.google,
-          ),
-        ).thenAnswer((_) async => const Right(testUser));
+          when(
+            () => mockRepository.authenticateWithBackend(
+              testToken,
+              OAuthProvider.google,
+            ),
+          ).thenAnswer((_) async => const Right(testUser));
 
-        final cubit = AuthCubit(repository: mockRepository);
-        expect(cubit.state, equals(const AuthState.initial()));
+          return AuthCubit(repository: mockRepository);
+        },
+        act: (cubit) => cubit.signInWithProvider(OAuthProvider.google),
+        expect: () => [
+          const AuthState.loading(),
+          const AuthState.authenticated(testUser),
+        ],
+      );
 
-        final future = cubit.signInWithProvider(OAuthProvider.google);
+      blocTest<AuthCubit, AuthState>(
+        'transitions from authenticated to initial on sign out',
+        build: () => AuthCubit(repository: mockRepository),
+        seed: () => const AuthState.authenticated(testUser),
+        act: (cubit) => cubit.signOut(),
+        expect: () => [const AuthState.initial()],
+      );
 
-        // Give it a bit of time to emit loading state
-        await Future.delayed(const Duration(milliseconds: 50));
-        expect(cubit.state, equals(const AuthState.loading()));
+      blocTest<AuthCubit, AuthState>(
+        'transitions from loading to failure on provider error',
+        build: () {
+          const failure = Failure.authentication();
 
-        await future;
-        expect(cubit.state, equals(const AuthState.authenticated(testUser)));
-      });
+          when(
+            () => mockRepository.getProviderToken(OAuthProvider.google),
+          ).thenAnswer((_) async {
+            await Future.value();
+            return const Left(failure);
+          });
 
-      test('transitions from authenticated to initial on sign out', () {
-        final cubit = AuthCubit(repository: mockRepository);
-        cubit.emit(const AuthState.authenticated(testUser));
-        expect(cubit.state, equals(const AuthState.authenticated(testUser)));
-
-        cubit.signOut();
-        expect(cubit.state, equals(const AuthState.initial()));
-      });
-
-      test('transitions from loading to failure on provider error', () async {
-        const failure = Failure.authentication();
-
-        when(
-          () => mockRepository.getProviderToken(OAuthProvider.google),
-        ).thenAnswer((_) async {
-          await Future.delayed(const Duration(milliseconds: 100));
-          return const Left(failure);
-        });
-
-        final cubit = AuthCubit(repository: mockRepository);
-        final future = cubit.signInWithProvider(OAuthProvider.google);
-
-        // Give it a bit of time to emit loading state
-        await Future.delayed(const Duration(milliseconds: 50));
-        expect(cubit.state, equals(const AuthState.loading()));
-
-        await future;
-        expect(cubit.state, equals(const AuthState.failure(failure)));
-      });
+          return AuthCubit(repository: mockRepository);
+        },
+        act: (cubit) => cubit.signInWithProvider(OAuthProvider.google),
+        expect: () => [
+          const AuthState.loading(),
+          const AuthState.failure(Failure.authentication()),
+        ],
+      );
     });
 
     group('Different OAuth Providers', () {
-      test('works with Google provider', () async {
-        when(
-          () => mockRepository.getProviderToken(OAuthProvider.google),
-        ).thenAnswer((_) async => const Right(testToken));
+      blocTest<AuthCubit, AuthState>(
+        'works with Google provider',
+        build: () {
+          when(
+            () => mockRepository.getProviderToken(OAuthProvider.google),
+          ).thenAnswer((_) async => const Right(testToken));
 
-        when(
-          () => mockRepository.authenticateWithBackend(
-            testToken,
-            OAuthProvider.google,
-          ),
-        ).thenAnswer((_) async => const Right(testUser));
+          when(
+            () => mockRepository.authenticateWithBackend(
+              testToken,
+              OAuthProvider.google,
+            ),
+          ).thenAnswer((_) async => const Right(testUser));
 
-        final cubit = AuthCubit(repository: mockRepository);
-        await cubit.signInWithProvider(OAuthProvider.google);
+          return AuthCubit(repository: mockRepository);
+        },
+        act: (cubit) => cubit.signInWithProvider(OAuthProvider.google),
+        expect: () => [
+          const AuthState.loading(),
+          const AuthState.authenticated(testUser),
+        ],
+        verify: (cubit) {
+          verify(
+            () => mockRepository.getProviderToken(OAuthProvider.google),
+          ).called(1);
+        },
+      );
 
-        expect(cubit.state, equals(const AuthState.authenticated(testUser)));
-        verify(
-          () => mockRepository.getProviderToken(OAuthProvider.google),
-        ).called(1);
-      });
+      blocTest<AuthCubit, AuthState>(
+        'works with Apple provider',
+        build: () {
+          when(
+            () => mockRepository.getProviderToken(OAuthProvider.apple),
+          ).thenAnswer((_) async => const Right(testToken));
 
-      test('works with Apple provider', () async {
-        when(
-          () => mockRepository.getProviderToken(OAuthProvider.apple),
-        ).thenAnswer((_) async => const Right(testToken));
+          when(
+            () => mockRepository.authenticateWithBackend(
+              testToken,
+              OAuthProvider.apple,
+            ),
+          ).thenAnswer((_) async => const Right(testUser));
 
-        when(
-          () => mockRepository.authenticateWithBackend(
-            testToken,
-            OAuthProvider.apple,
-          ),
-        ).thenAnswer((_) async => const Right(testUser));
-
-        final cubit = AuthCubit(repository: mockRepository);
-        await cubit.signInWithProvider(OAuthProvider.apple);
-
-        expect(cubit.state, equals(const AuthState.authenticated(testUser)));
-        verify(
-          () => mockRepository.getProviderToken(OAuthProvider.apple),
-        ).called(1);
-      });
+          return AuthCubit(repository: mockRepository);
+        },
+        act: (cubit) => cubit.signInWithProvider(OAuthProvider.apple),
+        expect: () => [
+          const AuthState.loading(),
+          const AuthState.authenticated(testUser),
+        ],
+        verify: (cubit) {
+          verify(
+            () => mockRepository.getProviderToken(OAuthProvider.apple),
+          ).called(1);
+        },
+      );
     });
   });
 }
