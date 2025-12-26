@@ -79,7 +79,7 @@ void main() {
 
         expect(states.length, equals(2));
         expect(states[0], equals(const AuthState.loading()));
-        expect(states[1], isA<AuthState>());
+        expect(states[1], equals(const AuthState.failure(failure)));
       });
 
       test(
@@ -107,7 +107,7 @@ void main() {
 
           expect(states.length, equals(2));
           expect(states[0], equals(const AuthState.loading()));
-          expect(states[1], isA<AuthState>());
+          expect(states[1], equals(const AuthState.failure(failure)));
         },
       );
 
