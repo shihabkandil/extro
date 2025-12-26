@@ -16,14 +16,15 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return TextButton(
       onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
+      style: TextButton.styleFrom(
+        overlayColor: Colors.black26,
         backgroundColor: AppColors.primary,
+        splashFactory: InkRipple.splashFactory,
         minimumSize: const Size.fromHeight(56),
         padding: padding,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        elevation: 0,
       ),
       child: Text(
         text,

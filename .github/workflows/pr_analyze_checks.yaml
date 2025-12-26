@@ -35,3 +35,6 @@ jobs:
 
       - name: Check code format
         run: dart format --set-exit-if-changed .
+
+      - name: Run tests
+        run: flutter test --coverage

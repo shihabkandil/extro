@@ -9,7 +9,12 @@ import 'package:extro/core/router/app_router.gr.dart';
 import 'package:extro/core/theme/app_colors.dart';
 import 'package:extro/features/auth/domain/cubits/auth_cubit/auth_cubit.dart';
 import 'package:extro/features/auth/domain/entities/oauth_provider.dart';
+import 'package:extro/features/auth/presentation/widgets/feature_indicators.dart';
+import 'package:extro/features/auth/presentation/widgets/login_footer.dart';
+import 'package:extro/features/auth/presentation/widgets/login_header.dart';
+import 'package:extro/features/auth/presentation/widgets/login_headline.dart';
 import 'package:extro/features/auth/presentation/widgets/sign_in_button.dart';
+import 'package:extro/features/auth/presentation/widgets/transaction_preview_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,173 +26,86 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.colorScheme.surface,
-      body: SafeArea(
-        child: BlocConsumer<AuthCubit, AuthState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              failure: (failure) => AppToast.showError(
-                DisplayError.fromFailure(context.localizer, failure),
+      body: Column(
+        children: [
+          Container(
+            height: 6,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [AppColors.primary, AppColors.secondary],
               ),
-              authenticated: (user) => AppToast.showSuccess(
-                '${context.localizer.welcomeBack} ${user.name ?? user.email}!',
-              ),
-            );
-          },
-          builder: (context, state) {
-            final isLoading = state.maybeWhen(
-              loading: () => true,
-              orElse: () => false,
-            );
-
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  spacing: 20,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 64,
-                      height: 64,
-                      decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                          colors: [AppColors.primary, AppColors.backgroundDark],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.primary.withAlpha(38),
-                            blurRadius: 16,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Container(
-                        margin: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                          color: AppColors.backgroundDark,
-                          borderRadius: BorderRadius.circular(18),
-                          border: Border.all(color: Colors.white10),
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.account_balance_wallet,
-                            color: AppColors.primary,
-                            size: 32,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      context.localizer.masterYourMoney,
-                      textAlign: TextAlign.center,
-                      style: context.textTheme.headlineSmall,
-                    ),
-                    if (context.isFeatureEnabled(
-                      FeatureFlag.oauthProviders,
-                    )) ...[
-                      Text(
-                        context.localizer.signInToContinue,
-                        textAlign: TextAlign.center,
-                        style: context.textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: 24),
-                      SignInButton(
-                        provider: OAuthProvider.google,
-                        isLoading: isLoading,
-                        onPressed: () => context
-                            .read<AuthCubit>()
-                            .signInWithProvider(OAuthProvider.google),
-                      ),
-                      const SizedBox(height: 12),
-                      SignInButton(
-                        provider: OAuthProvider.apple,
-                        isLoading: isLoading,
-                        onPressed: () => context
-                            .read<AuthCubit>()
-                            .signInWithProvider(OAuthProvider.apple),
-                      ),
-                      const SizedBox(height: 16),
-                    ],
-                    PrimaryButton(
-                      text: context.localizer.continueAsGuest,
-                      onPressed: () =>
-                          context.pushRoute(const DashboardRoute()),
-                    ),
-                    const Spacer(),
-                    const _LoginFooter(),
-                  ],
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
-  }
-}
-
-class _LoginFooter extends StatelessWidget {
-  const _LoginFooter();
-
-  @override
-  Widget build(BuildContext context) {
-    final localizer = context.localizer;
-    final textTheme = context.textTheme;
-    return Column(
-      children: [
-        Text.rich(
-          TextSpan(
-            text: localizer.dontHaveAccount,
-            style: textTheme.bodySmall?.copyWith(
-              color: context.colorScheme.onSurface.withAlpha(179),
             ),
-            children: [
-              const TextSpan(text: ' '),
-              TextSpan(
-                text: localizer.signUp,
-                style: textTheme.bodySmall?.copyWith(
-                  color: AppColors.secondary,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
           ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 12),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {},
-              style: TextButton.styleFrom(
-                foregroundColor: context.colorScheme.onSurface.withAlpha(153),
+          Expanded(
+            child: SafeArea(
+              top: false,
+              child: BlocConsumer<AuthCubit, AuthState>(
+                listener: (context, state) {
+                  state.whenOrNull(
+                    failure: (failure) => AppToast.showError(
+                      DisplayError.fromFailure(context.localizer, failure),
+                    ),
+                    authenticated: (user) => AppToast.showSuccess(
+                      '${context.localizer.welcomeBack} ${user.name ?? user.email}!',
+                    ),
+                  );
+                },
+                builder: (context, state) {
+                  final isLoading = state.maybeWhen(
+                    loading: () => true,
+                    orElse: () => false,
+                  );
+
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      children: [
+                        SizedBox(height: MediaQuery.viewPaddingOf(context).top),
+                        const LoginHeader(),
+                        const SizedBox(height: 16),
+                        const LoginHeadline(),
+                        const SizedBox(height: 32),
+                        const TransactionPreviewCard(),
+                        const SizedBox(height: 16),
+                        const FeatureIndicators(),
+                        const Spacer(),
+                        if (context.isFeatureEnabled(
+                          FeatureFlag.oauthProviders,
+                        )) ...[
+                          SignInButton(
+                            provider: OAuthProvider.google,
+                            isLoading: isLoading,
+                            onPressed: () => context
+                                .read<AuthCubit>()
+                                .signInWithProvider(OAuthProvider.google),
+                          ),
+                          const SizedBox(height: 12),
+                          SignInButton(
+                            provider: OAuthProvider.apple,
+                            isLoading: isLoading,
+                            onPressed: () => context
+                                .read<AuthCubit>()
+                                .signInWithProvider(OAuthProvider.apple),
+                          ),
+                          const SizedBox(height: 16),
+                        ],
+                        PrimaryButton(
+                          text: context.localizer.continueAsGuest,
+                          onPressed: () =>
+                              context.pushRoute(const DashboardRoute()),
+                        ),
+                        const SizedBox(height: 20),
+                        const LoginFooter(),
+                        const SizedBox(height: 16),
+                      ],
+                    ),
+                  );
+                },
               ),
-              child: Text(localizer.privacyPolicy, style: textTheme.labelSmall),
             ),
-            Text(
-              '•',
-              style: textTheme.labelSmall?.copyWith(
-                color: context.colorScheme.onSurface.withAlpha(102),
-              ),
-            ),
-            TextButton(
-              onPressed: () {},
-              style: TextButton.styleFrom(
-                foregroundColor: context.colorScheme.onSurface.withAlpha(153),
-              ),
-              child: Text(
-                localizer.termsOfService,
-                style: textTheme.labelSmall,
-              ),
-            ),
-          ],
-        ),
-      ],
+          ),
+        ],
+      ),
     );
   }
 }
