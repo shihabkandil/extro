@@ -1,3 +1,4 @@
+import 'package:extro/common/constants/app_strings.dart';
 import 'package:extro/features/auth/presentation/widgets/feature_indicators.dart';
 import 'package:extro/features/auth/presentation/widgets/login_footer.dart';
 import 'package:extro/features/auth/presentation/widgets/login_header.dart';
@@ -40,7 +41,8 @@ void main() {
     ) async {
       await tester.pumpWidget(buildTestWidget(child: const LoginHeadline()));
 
-      expect(find.byType(Text), findsWidgets);
+      expect(find.byType(Text), findsExactly(2));
+      expect(find.text(localizer.loginSubtitle), findsOneWidget);
     });
 
     testWidgets('TransactionPreviewCard renders with balance amount', (
@@ -50,7 +52,7 @@ void main() {
         buildTestWidget(child: const TransactionPreviewCard()),
       );
 
-      expect(find.text(r'$ 1352.00'), findsOneWidget);
+      expect(find.text(AppStrings.balanceAmount), findsOneWidget);
     });
 
     testWidgets('TransactionPreviewCard displays all transaction icons', (
@@ -73,9 +75,9 @@ void main() {
         buildTestWidget(child: const TransactionPreviewCard()),
       );
 
-      expect(find.text(r'+ $ 1,200.00'), findsOneWidget);
-      expect(find.text('- £ 14.50'), findsOneWidget);
-      expect(find.text('- EGP 850.00'), findsOneWidget);
+      expect(find.text(AppStrings.londonTravelAmount), findsOneWidget);
+      expect(find.text(AppStrings.dinnerAmount), findsOneWidget);
+      expect(find.text(AppStrings.freelanceAmount), findsOneWidget);
     });
 
     testWidgets('FeatureIndicators displays all three indicators', (
