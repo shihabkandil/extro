@@ -39,7 +39,7 @@ dependencies:
   sign_in_with_apple: ^7.0.1
 
   # Routing
-  auto_route: ^10.3.0
+  auto_route: ^11.1.0
   shared_preferences: ^2.2.0
 
 dev_dependencies:
@@ -47,12 +47,12 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^6.0.0
   # Routing codegen
-  auto_route_generator: ^10.2.6
+  auto_route_generator: ^10.3.1
   # Code Generation
   build_runner: 2.10.4
   freezed: ^3.2.3
   json_serializable: ^6.11.2
-  injectable_generator: ^2.4.1
+  injectable_generator: ^2.9.1
   # Testing
   mocktail: ^1.0.4
   bloc_test: ^10.0.0
