@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
 import 'package:extro/core/theme/app_colors.dart';
+import 'package:flutter/material.dart';
 
 class NavItem {
   final IconData icon;
@@ -28,10 +28,9 @@ class DashboardBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.surfaceLight,
-        border: const Border(top: BorderSide(color: AppColors.slate200)),
+        color: context.colorScheme.onSurface,
         boxShadow: [
           BoxShadow(
             color: AppColors.black.withValues(alpha: 0.1),
@@ -40,68 +39,66 @@ class DashboardBottomNavBar extends StatelessWidget {
           ),
         ],
       ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _NavBarItem(
-                icon: Icons.dashboard_outlined,
-                activeIcon: Icons.dashboard,
-                label: context.localizer.overview,
-                isSelected: currentIndex == 0,
-                onTap: () => onTap(0),
-              ),
-              _NavBarItem(
-                icon: Icons.receipt_long_outlined,
-                activeIcon: Icons.receipt_long,
-                label: context.localizer.history,
-                isSelected: currentIndex == 1,
-                onTap: () => onTap(1),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: GestureDetector(
-                  onTap: onAddTap,
-                  child: Container(
-                    width: 56,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: AppColors.primary,
-                      boxShadow: [
-                        BoxShadow(
-                          color: AppColors.primary.withValues(alpha: 0.4),
-                          blurRadius: 16,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: const Icon(
-                      Icons.add,
-                      color: AppColors.white,
-                      size: 32,
-                    ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _NavBarItem(
+              icon: Icons.dashboard_outlined,
+              activeIcon: Icons.dashboard,
+              label: context.localizer.overview,
+              isSelected: currentIndex == 0,
+              onTap: () => onTap(0),
+            ),
+            _NavBarItem(
+              icon: Icons.receipt_long_outlined,
+              activeIcon: Icons.receipt_long,
+              label: context.localizer.history,
+              isSelected: currentIndex == 1,
+              onTap: () => onTap(1),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: GestureDetector(
+                onTap: onAddTap,
+                child: Container(
+                  width: 56,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.primary,
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColors.primary.withValues(alpha: 0.4),
+                        blurRadius: 16,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.add,
+                    color: AppColors.white,
+                    size: 32,
                   ),
                 ),
               ),
-              _NavBarItem(
-                icon: Icons.account_balance_wallet_outlined,
-                activeIcon: Icons.account_balance_wallet,
-                label: context.localizer.wallets,
-                isSelected: currentIndex == 2,
-                onTap: () => onTap(2),
-              ),
-              _NavBarItem(
-                icon: Icons.settings_outlined,
-                activeIcon: Icons.settings,
-                label: context.localizer.settings,
-                isSelected: currentIndex == 3,
-                onTap: () => onTap(3),
-              ),
-            ],
-          ),
+            ),
+            _NavBarItem(
+              icon: Icons.account_balance_wallet_outlined,
+              activeIcon: Icons.account_balance_wallet,
+              label: context.localizer.wallets,
+              isSelected: currentIndex == 2,
+              onTap: () => onTap(2),
+            ),
+            _NavBarItem(
+              icon: Icons.settings_outlined,
+              activeIcon: Icons.settings,
+              label: context.localizer.settings,
+              isSelected: currentIndex == 3,
+              onTap: () => onTap(3),
+            ),
+          ],
         ),
       ),
     );
