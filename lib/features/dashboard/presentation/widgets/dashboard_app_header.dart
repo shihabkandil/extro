@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
 import 'package:extro/core/theme/app_colors.dart';
+import 'package:flutter/material.dart';
 
 /// A widget that displays the dashboard header with user profile,
 /// greeting message, sync indicator, and notification button.
@@ -43,7 +43,7 @@ class DashboardAppHeader extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: AppColors.primary.withValues(alpha: 0.2),
+                  color: AppColors.secondary.withValues(alpha: 0.2),
                   width: 2,
                 ),
                 image: avatarUrl != null
@@ -56,9 +56,9 @@ class DashboardAppHeader extends StatelessWidget {
               child: avatarUrl == null
                   ? Center(
                       child: Text(
-                        userName.isNotEmpty ? userName[0].toUpperCase() : 'U',
+                        userName.isNotEmpty ? userName[0].toUpperCase() : '',
                         style: context.textTheme.titleMedium?.copyWith(
-                          color: AppColors.primary,
+                          color: context.colorScheme.secondary,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -66,23 +66,21 @@ class DashboardAppHeader extends StatelessWidget {
                   : null,
             ),
             const SizedBox(width: 12),
-            // Greeting and Name
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   _getGreeting(context),
                   style: context.textTheme.bodySmall?.copyWith(
-                    color: AppColors.slate500,
+                    color: context.colorScheme.outline,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
                   userName,
                   style: context.textTheme.titleMedium?.copyWith(
-                    color: AppColors.textDark,
+                    color: context.colorScheme.primary,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: -0.3,
                   ),
                 ),
               ],
