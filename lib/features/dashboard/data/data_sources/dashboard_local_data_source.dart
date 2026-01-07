@@ -1,75 +1,104 @@
+import 'package:drift/drift.dart';
+import 'package:extro/core/database/app_database.dart';
+import 'package:extro/core/database/database_seeder.dart';
 import 'package:injectable/injectable.dart';
 
-import '../models/spending_chart_response.dart';
-import '../models/transaction_response.dart';
-import '../models/wallet_response.dart';
 import 'i_dashboard_local_data_source.dart';
 
 @Singleton(as: IDashboardLocalDataSource)
 class DashboardLocalDataSource implements IDashboardLocalDataSource {
-  DashboardLocalDataSource();
+  final AppDatabase _database;
+  late final DatabaseSeeder _seeder;
 
-  @override
-  Future<List<WalletResponse>> getAllWallets() async {
-    return [
-      const WalletResponse(
-        id: 1,
-        label: 'Main Wallet',
-        balance: 15000.0,
-        currency: 'USD',
-        icon: '💳',
-        accentColor: '#4A90E2',
-      ),
-      const WalletResponse(
-        id: 2,
-        label: 'Savings',
-        balance: 8500.0,
-        currency: 'USD',
-        icon: '💰',
-        accentColor: '#50C878',
-      ),
-    ];
+  DashboardLocalDataSource({required AppDatabase database})
+      : _database = database {
+    _seeder = DatabaseSeeder(_database);
   }
 
   @override
-  Future<List<TransactionResponse>> getRecentTransactions() async {
-    return [
-      const TransactionResponse(
-        id: 1,
-        title: 'Grocery Shopping',
-        dateTime: '2025-12-24T10:30:00Z',
-        amount: -85.50,
-        isIncome: false,
-        icon: '🛒',
-        walletId: 1,
-      ),
-      const TransactionResponse(
-        id: 2,
-        title: 'Salary',
-        dateTime: '2025-12-20T09:00:00Z',
-        amount: 3500.00,
-        isIncome: true,
-        icon: '💵',
-        walletId: 1,
-      ),
-      const TransactionResponse(
-        id: 3,
-        title: 'Netflix Subscription',
-        dateTime: '2025-12-15T12:00:00Z',
-        amount: -15.99,
-        isIncome: false,
-        icon: '🎬',
-        walletId: 1,
-      ),
-    ];
+  Future<void> seedInitialData() async {
+    await _seeder.seedInitialData();
   }
 
   @override
-  Future<SpendingChartResponse> getWeeklySpendingChart() async {
-    return const SpendingChartResponse(
-      spendingData: [120.0, 85.0, 150.0, 95.0, 200.0, 175.0, 110.0],
-      totalAmount: '935.00',
-      percentageChange: '+12.5',
-    );
+  Future<List<WalletTableData>> getAllWallets() async {
+    await seedInitialData();
+    return _database.select(_database.walletTable).get();
+  }
+
+  @override
+  Future<List<TransactionTableData>> getRecentTransactions() async {
+    await seedInitialData();
+    return (_database.select(_database.transactionTable)
+          ..orderBy([
+            (t) => OrderingTerm(
+                  expression: t.transactionDateTime,
+                  mode: OrderingMode.desc,
+                ),
+          ])
+          ..limit(10))
+        .get();
+  }
+
+  @override
+  Future<SpendingChartTableData?> getWeeklySpendingChart() async {
+    await seedInitialData();
+    return (_database.select(_database.spendingChartTable)..limit(1))
+        .getSingleOrNull();
+  }
+
+  @override
+  Future<double> getTotalIncome() async {
+    await seedInitialData();
+    final query = _database.selectOnly(_database.transactionTable)
+      ..addColumns([_database.transactionTable.amount.sum()])
+      ..where(_database.transactionTable.isIncome.equals(true));
+    
+    final result = await query.getSingle();
+    return result.read(_database.transactionTable.amount.sum()) ?? 0.0;
+  }
+
+  @override
+  Future<double> getTotalExpenses() async {
+    await seedInitialData();
+    final query = _database.selectOnly(_database.transactionTable)
+      ..addColumns([_database.transactionTable.amount.sum()])
+      ..where(_database.transactionTable.isIncome.equals(false));
+    
+    final result = await query.getSingle();
+    final sum = result.read(_database.transactionTable.amount.sum()) ?? 0.0;
+    return sum.abs();
+  }
+
+  @override
+  Future<void> insertWallet(WalletTableCompanion wallet) async {
+    await _database.into(_database.walletTable).insert(wallet);
+  }
+
+  @override
+  Future<void> insertTransaction(TransactionTableCompanion transaction) async {
+    await _database.into(_database.transactionTable).insert(transaction);
+  }
+
+  @override
+  Future<void> saveSpendingChart(SpendingChartTableCompanion chart) async {
+    await _database.delete(_database.spendingChartTable).go();
+    await _database.into(_database.spendingChartTable).insert(chart);
+  }
+
+  @override
+  Future<void> insertWallets(List<WalletTableCompanion> wallets) async {
+    await _database.batch((batch) {
+      batch.insertAll(_database.walletTable, wallets);
+    });
+  }
+
+  @override
+  Future<void> insertTransactions(
+    List<TransactionTableCompanion> transactions,
+  ) async {
+    await _database.batch((batch) {
+      batch.insertAll(_database.transactionTable, transactions);
+    });
   }
 }

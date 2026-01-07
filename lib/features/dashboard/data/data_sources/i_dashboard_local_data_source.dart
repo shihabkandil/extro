@@ -1,9 +1,18 @@
-import '../models/wallet_response.dart';
-import '../models/transaction_response.dart';
-import '../models/spending_chart_response.dart';
+import 'package:extro/core/database/app_database.dart';
 
 abstract class IDashboardLocalDataSource {
-  Future<List<WalletResponse>> getAllWallets();
-  Future<List<TransactionResponse>> getRecentTransactions();
-  Future<SpendingChartResponse> getWeeklySpendingChart();
+  Future<List<WalletTableData>> getAllWallets();
+  Future<List<TransactionTableData>> getRecentTransactions();
+  Future<SpendingChartTableData?> getWeeklySpendingChart();
+
+  Future<void> insertWallet(WalletTableCompanion wallet);
+  Future<void> insertTransaction(TransactionTableCompanion transaction);
+  Future<void> saveSpendingChart(SpendingChartTableCompanion chart);
+
+  Future<void> insertWallets(List<WalletTableCompanion> wallets);
+  Future<void> insertTransactions(List<TransactionTableCompanion> transactions);
+
+  Future<double> getTotalIncome();
+  Future<double> getTotalExpenses();
+  Future<void> seedInitialData();
 }
