@@ -42,6 +42,12 @@ dependencies:
   auto_route: ^10.3.0
   shared_preferences: ^2.2.0
 
+  # Local Database
+  drift: ^2.14.0
+  sqlite3_flutter_libs: ^0.5.0
+  path_provider: ^2.0.0
+  path: ^1.8.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -53,6 +59,8 @@ dev_dependencies:
   freezed: ^3.2.3
   json_serializable: ^6.11.2
   injectable_generator: ^2.8.1
+  # Database code generation
+  drift_dev: ^2.14.0
   # Testing
   mocktail: ^1.0.4
   bloc_test: ^10.0.0
