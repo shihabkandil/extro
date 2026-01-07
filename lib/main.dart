@@ -20,8 +20,7 @@ void main() async {
   await locator<ThemeCubit>().init(
     PlatformDispatcher.instance.platformBrightness,
   );
-  runApp(const MyApp(),
-        );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
