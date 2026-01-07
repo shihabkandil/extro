@@ -11,7 +11,7 @@ class DashboardLocalDataSource implements IDashboardLocalDataSource {
   late final DatabaseSeeder _seeder;
 
   DashboardLocalDataSource({required AppDatabase database})
-      : _database = database {
+    : _database = database {
     _seeder = DatabaseSeeder(_database);
   }
 
@@ -32,9 +32,9 @@ class DashboardLocalDataSource implements IDashboardLocalDataSource {
     return (_database.select(_database.transactionTable)
           ..orderBy([
             (t) => OrderingTerm(
-                  expression: t.transactionDateTime,
-                  mode: OrderingMode.desc,
-                ),
+              expression: t.transactionDateTime,
+              mode: OrderingMode.desc,
+            ),
           ])
           ..limit(10))
         .get();
@@ -43,8 +43,9 @@ class DashboardLocalDataSource implements IDashboardLocalDataSource {
   @override
   Future<SpendingChartTableData?> getWeeklySpendingChart() async {
     await seedInitialData();
-    return (_database.select(_database.spendingChartTable)..limit(1))
-        .getSingleOrNull();
+    return (_database.select(
+      _database.spendingChartTable,
+    )..limit(1)).getSingleOrNull();
   }
 
   @override
@@ -53,7 +54,7 @@ class DashboardLocalDataSource implements IDashboardLocalDataSource {
     final query = _database.selectOnly(_database.transactionTable)
       ..addColumns([_database.transactionTable.amount.sum()])
       ..where(_database.transactionTable.isIncome.equals(true));
-    
+
     final result = await query.getSingle();
     return result.read(_database.transactionTable.amount.sum()) ?? 0.0;
   }
@@ -64,7 +65,7 @@ class DashboardLocalDataSource implements IDashboardLocalDataSource {
     final query = _database.selectOnly(_database.transactionTable)
       ..addColumns([_database.transactionTable.amount.sum()])
       ..where(_database.transactionTable.isIncome.equals(false));
-    
+
     final result = await query.getSingle();
     final sum = result.read(_database.transactionTable.amount.sum()) ?? 0.0;
     return sum.abs();

@@ -26,4 +26,3 @@ class DashboardStatsCubit extends Cubit<DashboardStatsState> {
     );
   }
 }
-

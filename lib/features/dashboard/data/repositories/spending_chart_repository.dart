@@ -18,11 +18,13 @@ class SpendingChartRepository implements ISpendingChartRepository {
     try {
       final tableData = await localDataSource.getWeeklySpendingChart();
       if (tableData == null) {
-        return const Right(SpendingChart(
-          spendingData: [],
-          totalAmount: '0.00',
-          percentageChange: '0.0',
-        ));
+        return const Right(
+          SpendingChart(
+            spendingData: [],
+            totalAmount: '0.00',
+            percentageChange: '0.0',
+          ),
+        );
       }
       return Right(tableData.toDomain());
     } catch (e) {

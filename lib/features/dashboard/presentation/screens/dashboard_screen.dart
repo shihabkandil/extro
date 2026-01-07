@@ -136,7 +136,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Expanded(
                               child: StatsCard(
                                 label: context.localizer.income,
-                                value: '+\$${stats.totalIncome.toStringAsFixed(2)}',
+                                value:
+                                    '+\$${stats.totalIncome.toStringAsFixed(2)}',
                                 isIncome: true,
                               ),
                             ),
@@ -144,7 +145,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Expanded(
                               child: StatsCard(
                                 label: context.localizer.expenses,
-                                value: '-\$${stats.totalExpenses.toStringAsFixed(2)}',
+                                value:
+                                    '-\$${stats.totalExpenses.toStringAsFixed(2)}',
                                 isIncome: false,
                               ),
                             ),

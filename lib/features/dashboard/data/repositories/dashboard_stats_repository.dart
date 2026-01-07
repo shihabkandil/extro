@@ -17,12 +17,12 @@ class DashboardStatsRepository implements IDashboardStatsRepository {
     try {
       final income = await localDataSource.getTotalIncome();
       final expenses = await localDataSource.getTotalExpenses();
-      
+
       final stats = DashboardStats(
         totalIncome: income,
         totalExpenses: expenses,
       );
-      
+
       return Right(stats);
     } catch (e) {
       return const Left(Failure.cache());
