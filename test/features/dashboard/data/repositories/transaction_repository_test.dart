@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:extro/common/utils/transaction_type_icon.dart';
 import 'package:extro/core/database/app_database.dart';
 import 'package:extro/core/failures/failure.dart';
 import 'package:extro/features/dashboard/data/data_sources/i_dashboard_local_data_source.dart';
@@ -28,7 +28,7 @@ void main() {
             transactionDateTime: DateTime(2025, 12, 20, 9),
             amount: 3500.0,
             isIncome: true,
-            icon: '💵',
+            icon: TransactionTypeIcon.dollarSign.value,
             walletId: 1,
           ),
           TransactionTableData(
@@ -37,7 +37,7 @@ void main() {
             transactionDateTime: DateTime(2025, 12, 24, 10, 30),
             amount: -85.50,
             isIncome: false,
-            icon: '🛒',
+            icon: TransactionTypeIcon.cart.value,
             walletId: 1,
           ),
         ];
@@ -95,7 +95,7 @@ void main() {
             transactionDateTime: dateTime,
             amount: 100.0,
             isIncome: true,
-            icon: '💵',
+            icon: TransactionTypeIcon.dollarSign.value,
             walletId: 1,
           ),
         ];

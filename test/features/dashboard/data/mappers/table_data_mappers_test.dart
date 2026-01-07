@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:extro/common/utils/transaction_type_icon.dart';
 import 'package:extro/core/database/app_database.dart';
 import 'package:extro/features/dashboard/data/mappers/table_data_mappers.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,7 +14,7 @@ void main() {
           label: 'Test Wallet',
           balance: 1000.0,
           currency: 'USD',
-          icon: '💳',
+          icon: 'card',
           accentColor: '#4A90E2',
         );
 
@@ -23,7 +24,7 @@ void main() {
         expect(wallet.label, equals('Test Wallet'));
         expect(wallet.balance, equals(1000.0));
         expect(wallet.currency, equals('USD'));
-        expect(wallet.icon, equals('💳'));
+        expect(wallet.icon, equals(TransactionTypeIcon.card.value));
         expect(wallet.accentColor, equals('#4A90E2'));
       });
     });
@@ -37,7 +38,7 @@ void main() {
           transactionDateTime: dateTime,
           amount: 3500.00,
           isIncome: true,
-          icon: '💵',
+          icon: 'dollar_sign',
           walletId: 1,
         );
 
@@ -48,7 +49,7 @@ void main() {
         expect(transaction.dateTime, equals(dateTime));
         expect(transaction.amount, equals(3500.00));
         expect(transaction.isIncome, equals(true));
-        expect(transaction.icon, equals('💵'));
+        expect(transaction.icon, equals(TransactionTypeIcon.dollarSign.value));
         expect(transaction.walletId, equals(1));
       });
 
@@ -59,7 +60,7 @@ void main() {
           transactionDateTime: DateTime(2025, 12, 24, 10, 30),
           amount: -85.50,
           isIncome: false,
-          icon: '🛒',
+          icon: 'cart',
           walletId: 1,
         );
 

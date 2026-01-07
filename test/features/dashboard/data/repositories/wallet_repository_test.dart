@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:extro/common/utils/transaction_type_icon.dart';
 import 'package:extro/core/database/app_database.dart';
 import 'package:extro/core/failures/failure.dart';
 import 'package:extro/features/dashboard/data/data_sources/i_dashboard_local_data_source.dart';
@@ -22,20 +22,20 @@ void main() {
     group('getAllWallets', () {
       test('returns list of wallets from data source', () async {
         final walletTableData = [
-          const WalletTableData(
+          WalletTableData(
             id: 1,
             label: 'Main Wallet',
             balance: 15000.0,
             currency: 'USD',
-            icon: '💳',
+            icon: TransactionTypeIcon.card.value,
             accentColor: '#4A90E2',
           ),
-          const WalletTableData(
+          WalletTableData(
             id: 2,
             label: 'Savings',
             balance: 8500.0,
             currency: 'USD',
-            icon: '💰',
+            icon: TransactionTypeIcon.coinsBag.value,
             accentColor: '#50C878',
           ),
         ];

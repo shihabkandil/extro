@@ -1,4 +1,5 @@
 import 'package:drift/native.dart';
+import 'package:extro/common/utils/transaction_type_icon.dart';
 import 'package:extro/core/database/app_database.dart';
 import 'package:extro/features/dashboard/data/data_sources/dashboard_local_data_source.dart';
 import 'package:flutter_test/flutter_test.dart' hide isNull, isNotNull;
@@ -86,7 +87,7 @@ void main() {
             label: 'New Wallet',
             balance: 500.0,
             currency: 'USD',
-            icon: '💳',
+            icon: TransactionTypeIcon.card.value,
             accentColor: '#FF0000',
           ),
         );
@@ -105,7 +106,7 @@ void main() {
             transactionDateTime: DateTime(2025, 12, 25),
             amount: 100.0,
             isIncome: true,
-            icon: '💵',
+            icon: TransactionTypeIcon.dollarSign.value,
             walletId: 1,
           ),
         );

@@ -1,8 +1,8 @@
-import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
+import 'package:extro/common/utils/transaction_type_icon.dart';
 import 'package:extro/core/database/app_database.dart';
 import 'package:extro/core/database/database_seeder.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:drift/native.dart';
 
 void main() {
   group('DatabaseSeeder', () {
@@ -67,13 +67,17 @@ void main() {
         expect(wallets[0].label, equals('Main Wallet'));
         expect(wallets[0].balance, equals(15000.0));
         expect(wallets[0].currency, equals('USD'));
-        expect(wallets[0].icon, equals('💳'));
+        expect(wallets[0].icon, equals(TransactionTypeIcon.card.value));
 
         expect(wallets[1].label, equals('Savings'));
         expect(wallets[1].balance, equals(8500.0));
+        expect(wallets[1].currency, equals('USD'));
+        expect(wallets[1].icon, equals(TransactionTypeIcon.coinsBag.value));
 
         expect(wallets[2].label, equals('Investment'));
         expect(wallets[2].balance, equals(12300.0));
+        expect(wallets[2].currency, equals('USD'));
+        expect(wallets[2].icon, equals(TransactionTypeIcon.stockChart.value));
       });
 
       test('seeds correct transaction data with income and expenses', () async {
