@@ -11,6 +11,7 @@ import 'package:extro/features/dashboard/presentation/widgets/weekly_spending_ch
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../domain/cubits/dashboard_stats_cubit/dashboard_stats_cubit.dart';
 import '../../domain/cubits/spending_chart_cubit/spending_chart_cubit.dart';
 import '../../domain/cubits/transaction_cubit/transaction_cubit.dart';
 import '../../domain/cubits/wallet_cubit/wallet_cubit.dart';
@@ -44,6 +45,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         BlocProvider<SpendingChartCubit>(
           create: (context) => SpendingChartCubit()..fetchWeeklySpendingChart(),
+        ),
+        BlocProvider<DashboardStatsCubit>(
+          create: (context) => DashboardStatsCubit()..fetchDashboardStats(),
         ),
       ],
       child: Scaffold(
@@ -124,15 +128,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     },
                   ),
                   const SizedBox(height: 24),
-                  BlocBuilder<TransactionCubit, TransactionState>(
-                    builder: (context, transactionState) {
-                      return transactionState.maybeWhen(
-                        success: (transactions) => Row(
+                  BlocBuilder<DashboardStatsCubit, DashboardStatsState>(
+                    builder: (context, statsState) {
+                      return statsState.maybeWhen(
+                        success: (stats) => Row(
                           children: [
                             Expanded(
                               child: StatsCard(
                                 label: context.localizer.income,
-                                value: '+\$2,000',
+                                value:
+                                    '+\$${stats.totalIncome.toStringAsFixed(2)}',
                                 isIncome: true,
                               ),
                             ),
@@ -140,7 +145,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Expanded(
                               child: StatsCard(
                                 label: context.localizer.expenses,
-                                value: '-\$850',
+                                value:
+                                    '-\$${stats.totalExpenses.toStringAsFixed(2)}',
                                 isIncome: false,
                               ),
                             ),
@@ -151,7 +157,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Expanded(
                               child: StatsCard(
                                 label: context.localizer.income,
-                                value: '+\$0',
+                                value: '+\$0.00',
                                 isIncome: true,
                               ),
                             ),
@@ -159,7 +165,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             Expanded(
                               child: StatsCard(
                                 label: context.localizer.expenses,
-                                value: '-\$0',
+                                value: '-\$0.00',
                                 isIncome: false,
                               ),
                             ),
