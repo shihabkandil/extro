@@ -46,5 +46,5 @@ jobs:
       - name: Auto-commit formatting and fixes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "style: auto-fix linting and formatting"
+          commit_message: "style: auto-fix linting and formatting [skip ci]"
           commit_user_name: "Extro Bot"
