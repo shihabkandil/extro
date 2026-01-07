@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:extro/core/extensions/context_extensions.dart';
 import 'package:extro/core/theme/app_colors.dart';
+import 'package:flutter/material.dart';
 
 /// A widget that displays a section header with a title and optional action link.
 class SectionHeader extends StatelessWidget {
@@ -23,7 +23,7 @@ class SectionHeader extends StatelessWidget {
         Text(
           title,
           style: context.textTheme.titleMedium?.copyWith(
-            color: AppColors.textDark,
+            color: context.colorScheme.inverseSurface,
             fontWeight: FontWeight.w600,
           ),
         ),
