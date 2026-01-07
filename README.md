@@ -1,6 +1,7 @@
 [![iOS CI Build](https://github.com/shihabkandil/extro/actions/workflows/ios_ci.yaml/badge.svg)](https://github.com/shihabkandil/extro/actions/workflows/ios_ci.yaml)
 [![Android CI Build](https://github.com/shihabkandil/extro/actions/workflows/android_ci.yaml/badge.svg)](https://github.com/shihabkandil/extro/actions/workflows/android_ci.yaml)
 [![Analyze & Format & Test](https://github.com/shihabkandil/extro/actions/workflows/flutter_ci.yaml/badge.svg)](https://github.com/shihabkandil/extro/actions/workflows/flutter_ci.yaml)
+[![Unit Tests](https://github.com/shihabkandil/extro/actions/workflows/test.yaml/badge.svg)](https://github.com/shihabkandil/extro/actions/workflows/test.yaml)
 # Extro
 
 A Flutter expense and income tracking application built with Clean Architecture principles.
