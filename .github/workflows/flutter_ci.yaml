@@ -6,12 +6,12 @@ on:
         - develop
 
 jobs:
-  permissions:
-    contents: write
-
   analyze_and_format:
     name: Analyze & Format checks
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
